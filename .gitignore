@@ -10,6 +10,9 @@ reports/
 *.sqlite3
 *.csv
 
+touch data/.gitkeep 
+reports/.gitkeep
+
 # --- Python & Virtual Environments ---
 .venv/
 venv/
