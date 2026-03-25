@@ -1,5 +1,14 @@
 # config.py
 from pathlib import Path
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+# Load the hidden .env file
+load_dotenv()
+
+# Securely grab the key
+CLAUDE_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 
 # ── Paths ──────────────────────────────────────────────
 PROJECT_ROOT = Path(__file__).parent
