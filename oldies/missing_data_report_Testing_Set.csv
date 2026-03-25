@@ -1,0 +1,11 @@
+Ticker,Screening_Date,Sector,Missing_Count,Missing_Features
+PRU,2025-06-30,Financial Services,3,"Free_Cash_Flow_Raw, Gross_Profit_Margin_Raw, Operating_Margin_Raw"
+AZO,2025-06-30,Consumer Cyclical,2,"PB_Raw, ROE_Raw"
+MSCI,2025-06-30,Financial Services,2,"PB_Raw, ROE_Raw"
+PGR,2025-06-30,Financial Services,2,"Gross_Profit_Margin_Raw, Operating_Margin_Raw"
+AKAM,2025-06-30,Technology,0,
+BALL,2025-06-30,Consumer Cyclical,0,
+BSX,2025-06-30,Healthcare,0,
+COO,2025-06-30,Healthcare,0,
+DRI,2025-06-30,Consumer Cyclical,0,
+KO,2025-06-30,Consumer Defensive,0,
