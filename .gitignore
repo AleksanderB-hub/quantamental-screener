@@ -4,8 +4,6 @@
 # --- Data & Databases ---
 # We ignore these because data files get massive and bloat the git history.
 # We only want to track the *code* that generates the data, not the data itself.
-data/
-reports/
 *.db
 *.sqlite3
 *.csv
