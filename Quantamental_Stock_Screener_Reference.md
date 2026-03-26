@@ -4,39 +4,14 @@
 
 An automated stock screening engine that combines quantitative rule-based filtering with an agentic AI "live assessment" layer. The project operates in two major phases:
 
-- **Phase A (Quantitative Engine):** Screen S&P 500 stocks using ~40 fundamental/technical rules, use ML to identify which rules actually predict outperformance, then rank stocks using a trained model.
-- **Phase B (Agentic Live Layer):** Take the top-ranked stocks from Phase A and run them through an LLM-powered multi-agent pipeline that gathers and synthesises qualitative signals (news, ESG, management changes) for a final investment assessment.
-
-### Why this project:
-- Builds on substantial existing codebase (rules engine, SQLite pipeline, data quality audit)
-- Demonstrates breadth: data engineering + ML + agentic AI
-- Phase A is a standalone portfolio piece even without Phase B
-- Finance domain with practical, demo-able output
-- Agentic layer introduces LangChain/RAG naturally where it adds value
+- **Phase A (Quantitative Engine):** Screen S&P 500 stocks using ~40 fundamental/technical rules, use ML to identify which rules actually predict outperformance, then apply a transparent scoring system using the most robust rules.
+- **Phase B (Agentic Live Layer):** Take the top-scored stocks from Phase A and run them through an LLM-powered multi-agent pipeline that gathers and synthesises qualitative signals (news, ESG, management changes) for a final investment assessment.
 
 ---
 
-## Current State
+## Phase A — Complete Summary
 
-### What's built:
-- **`test.py`** — Complete backtesting pipeline, tested on 10 random S&P 500 tickers
-- Refactored `get_robust_financials` with new signature: `(ticker_symbol, hist, fin, bs, cash, info, screening_date)`
-- `process_historical_snapshot` — handles date slicing, 90-day reporting lag, and forward return calculation
-- `run_backtest_pipeline` — main loop fetching data once per ticker, generating snapshots per screening date
-- `calculate_list_2_rules` — industry-relative scoring with NaN propagation, grouped by `(Screening_Date, Sector)`
-- `audit_extraction` — data quality reporting per dataset
-- Dynamic fallback extraction (3yr → 2yr → 1yr) for growth metrics and streak rules
-- Consistent NaN propagation (missing data → NaN, not 0)
-- Training/testing split: train on 2023-2024 snapshots, test on 2025-06-30
-
-### What's next:
-- Apply bug fixes (see Known Issues below)
-- Run full S&P 500 extraction
-- Feature selection (quintile labels) and prediction model (percentile ranking)
-
----
-
-## Pipeline Architecture
+### Pipeline Architecture
 
 The pipeline uses a **feature store design** — rules and ratios are computed in Python and saved as pre-processed binary features. Raw accounting line items are NOT stored in the database.
 
@@ -75,221 +50,232 @@ The pipeline uses a **feature store design** — rules and ratios are computed i
                            │
                            ▼
 ┌──────────────────────────────────────────────────────────────┐
-│  OUTPUT: Two datasets                                        │
-│                                                              │
-│  Training Set (2023-2024):  features + Forward_6m_Return     │
-│                             + Forward_6m_Excess_Return       │
-│  Testing Set  (2025-06-30): features + Forward_6m_Return     │
-│                             + Forward_6m_Excess_Return       │
-│                                                              │
-│  Stored in: ml_stock_pipeline.db + CSV exports               │
+│  ML ANALYSIS → FEATURE SELECTION → TRANSPARENT SCORING       │
 └──────────────────────────────────────────────────────────────┘
 ```
 
+### Data Scale
+- **Training set:** 1,494 rows (S&P 500 × 3 screening dates: 2023-12-31, 2024-06-30, 2024-12-31)
+- **Testing set:** 501 rows (S&P 500 × 1 screening date: 2025-06-30)
+- **43 binary features** across Lists 1, 2, and 3
+
+### Screening Timeline
+- Training: `2023-12-31`, `2024-06-30`, `2024-12-31`
+- Validation: `2024-12-31` (used for hyperparameter tuning, then merged into training for final models)
+- Testing: `2025-06-30` (6-month forward return available through Dec 2025)
+
 ---
 
-## Complete Rules Inventory
+## ML Experiment Results
+
+### Model Comparison (3 architectures tested)
+
+```
+Model               Val Spearman   Test Spearman   Top20% Hit   Top30% Hit   Top40% Hit
+─────────────────────────────────────────────────────────────────────────────────────────
+Lasso                  +0.190         -0.070          21.8%        27.2%        39.3%
+Random Forest          +0.209         -0.086          17.8%        25.8%        36.8%
+XGBoost (tuned)        +0.256         -0.074          18.8%        29.8%        40.8%
+Random baseline            —          +0.000          20.0%        30.0%        40.0%
+```
+
+**Key finding:** All three models showed promising validation performance but collapsed to random-baseline on the out-of-sample test set. More model complexity did not help — XGBoost (most complex) performed marginally worse than Lasso (simplest) on test data. This is consistent with the limited training data covering a single market regime (2023-2024 bull market) that did not persist into the 2025 test period.
+
+**Conclusion:** With the available data, reliable stock return prediction is not achievable. The ML models were used to identify which features are consistently important (feature selection), not for direct prediction. The final screening uses a transparent rule-counting approach.
+
+### Feature Selection (4 independent methods)
+
+| Method | What it measures | Features identified |
+|--------|-----------------|-------------------|
+| SHAP (XGBoost) | How each feature pushes predictions | Top 15 ranked by mean absolute SHAP |
+| Permutation Importance | Performance drop when feature shuffled | Top 15 ranked by importance |
+| Boruta (Random Forest) | Whether feature beats randomised shadow copies | 4 confirmed, 1 tentative |
+| Lasso (L1 regression) | Which features survive regularisation | 29 non-zero coefficients |
+
+**Consensus approach:** Features scoring 2+ out of 3 methods (SHAP top-15, Permutation top-15, Boruta confirmed) were selected. Lasso independently confirmed all 11 consensus features (all had non-zero coefficients).
+
+### Lasso Coefficient Sign Analysis
+
+Some "quality/value" features showed **negative** coefficients in the 2023-2024 training period. This reflects regime-specific dynamics (growth/momentum outperformed value in this period), not flawed feature logic:
+
+**Positive coefficients (momentum/trend — worked in training period):**
+- `50MA_Gt_200MA` (+0.080), `Op_Margin_Gt_Hist_Avg` (+0.083)
+- `EPS_Current_Change_Above_Industry` (+0.020), `Price_Gt_50MA` (+0.010)
+
+**Negative coefficients (quality/value — counter-cyclical in this period):**
+- `ROE_Gt_15_Sustained` (-0.061), `PE_Below_Industry` (-0.037)
+- `PB_Below_Industry` (-0.016), `DE_Less_1` (-0.004)
+
+**Design decision:** Both momentum and quality/value features are retained in the screener. Stocks passing rules from both categories have both trend confirmation AND fundamental substance — the ideal quantamental combination. The scoring does not use coefficient signs; it counts how many screening criteria a stock meets.
+
+---
+
+## Final Screening System
+
+### Selected Features (11 features, tiered weighting, max score: 15)
+
+**Tier 1 — Boruta confirmed, strongest evidence (2 points each):**
+
+| Feature | Category | What it measures |
+|---------|----------|-----------------|
+| `50MA_Gt_200MA` | Momentum | Price in sustained uptrend (golden cross) |
+| `Op_Margin_Gt_Hist_Avg` | Quality | Operating margins improving vs own history |
+| `PE_Below_Industry` | Value | Cheaper than sector peers |
+| `Gross_Margin_Above_Industry` | Quality | Stronger competitive position than peers |
+
+**Tier 2 — Consensus across SHAP + Permutation (1 point each):**
+
+| Feature | Category | What it measures |
+|---------|----------|-----------------|
+| `ROE_Gt_15_Sustained` | Quality | Consistently high profitability (3yr/2yr) |
+| `EPS_Current_Change_Above_Industry` | Momentum | Earnings growing faster than sector peers |
+| `Price_Gt_50MA` | Momentum | Price above short-term trend |
+| `DE_Less_1` | Value | Conservative debt levels |
+| `PE_Bottom_40_Pct` | Value | Cheap relative to entire universe |
+| `PB_Below_Industry` | Value | Book value discount vs sector peers |
+| `Assets_To_Liability_Ratio_Above_Industry` | Value | Stronger balance sheet than peers |
+
+### Scoring Logic
+- For each stock: `Total_Score = (Tier 1 rules passed × 2) + (Tier 2 rules passed × 1)`
+- NaN treated as not passed (conservative)
+- Ranked by Total_Score descending, Tier_1_Score as tiebreaker
+- Candidates with Total_Score ≥ 8 feed into Phase B agent layer
+
+### Factor Balance
+The 11 features span: Momentum (4 features), Value (5 features), Quality (3 features) — with some overlap. This diversification means the screener doesn't bet on a single factor regime.
+
+---
+
+## Complete Rules Inventory (43 features, 11 selected)
 
 ### List 1: Absolute Rules (Binary 0/1)
 
 **Technical Indicators:**
-- `Price_Gt_50MA` — Current price > 50-day moving average
-- `50MA_Gt_200MA` — 50-day MA > 200-day MA (golden cross)
-- `RSI_13W_Gt_RSI_25W` — 13-week RSI > 25-week RSI (momentum)
-- `OBV_20D_Positive` — 20-day OBV change is positive (volume confirmation)
+- `Price_Gt_50MA` ✓ SELECTED (Tier 2)
+- `50MA_Gt_200MA` ✓ SELECTED (Tier 1)
+- `RSI_13W_Gt_RSI_25W`
+- `OBV_20D_Positive`
 
 **Valuation:**
-- `PEG_01_to_05` — PEG ratio between 0.1 and 0.5
-- `PEG_Less_1` — PEG ratio < 1.0
-- `PEG_Less_1_5` — PEG ratio < 1.5
-- `PB_Less_2` — Price-to-book < 2
-- `Zero_Dividend` — Dividend yield = 0% (reinvesting earnings)
-- `MC_to_CF_Less_3` — Market cap / operating cash flow < 3
+- `PEG_01_to_05`
+- `PEG_Less_1`
+- `PEG_Less_1_5`
+- `PB_Less_2`
+- `Zero_Dividend`
+- `MC_to_CF_Less_3`
 
 **Financial Health:**
-- `DE_Less_1` — Debt-to-equity < 1
-- `Cash_Ratio_Gt_1` — Cash / current liabilities > 1
-- `Cash_Ratio_Improving` — Cash ratio improving year-over-year
-- `FCF_Positive` — Free cash flow > 0
-- `FCF_Growing` — FCF growing year-over-year
-- `OCF_Gt_NetIncome` — Operating cash flow > net income (earnings quality)
-- `ROA_Positive` — Return on assets > 0
+- `DE_Less_1` ✓ SELECTED (Tier 2)
+- `Cash_Ratio_Gt_1`
+- `Cash_Ratio_Improving`
+- `FCF_Positive`
+- `FCF_Growing`
+- `OCF_Gt_NetIncome`
+- `ROA_Positive`
 
-### List 3: Historical Streaks (Binary 0/1, Dynamic Fallback)
+### List 3: Historical Streaks (Dynamic 3yr→2yr→1yr fallback)
 
-All streak rules use dynamic extraction: try 3-year data first, fall back to 2-year if unavailable.
+- `FCF_Growing_Sustained`
+- `ROE_Gt_15_Sustained` ✓ SELECTED (Tier 2)
+- `Net_Income_Growth_Gt_8pct`
+- `Sales_Growth_Gt_RnD_Growth`
+- `Op_Margin_Gt_Hist_Avg` ✓ SELECTED (Tier 1)
+- `Sales_Growing_Sustained`
 
-- `FCF_Growing_Sustained` — FCF growing consecutively (3yr or 2yr)
-- `ROE_Gt_15_Sustained` — ROE > 15% sustained (3yr, 2yr, or 1yr)
-- `Net_Income_Growth_Gt_8pct` — Net income CAGR > 8% (3yr, 2yr, or 1yr)
-- `Sales_Growth_Gt_RnD_Growth` — Sales CAGR > R&D CAGR (matched timeframes)
-- `Op_Margin_Gt_Hist_Avg` — Current operating margin > historical average
-- `Sales_Growing_Sustained` — Revenue growing consecutively (3yr or 2yr)
-
-### List 2: Industry & Universe Relative (Binary 0/1, computed in batch)
+### List 2: Industry & Universe Relative
 
 **Universe Percentile Rankings (per screening date):**
 - `Market_Cap_Top_30_Pct` / `Market_Cap_Top_25_Pct`
-- `PE_Bottom_40_Pct` / `PE_Bottom_20_Pct`
+- `PE_Bottom_40_Pct` ✓ SELECTED (Tier 2) / `PE_Bottom_20_Pct`
 - `FCF_Top_30_Pct`
 
 **Industry-Relative (per screening date × sector):**
-- `PE_Below_Industry` / `PB_Below_Industry` — Valuation below sector median
-- `Div_Yield_Above_Industry` — Dividend yield above sector median
-- `Margin_Above_Industry` / `Gross_Margin_Above_Industry` / `Operating_Margin_Above_Industry`
+- `PE_Below_Industry` ✓ SELECTED (Tier 1) / `PB_Below_Industry` ✓ SELECTED (Tier 2)
+- `Div_Yield_Above_Industry`
+- `Margin_Above_Industry` / `Gross_Margin_Above_Industry` ✓ SELECTED (Tier 1) / `Operating_Margin_Above_Industry`
 - `ROE_Above_Industry`
 - `Debt_To_Assets_Ratio_Below_Industry` / `Long_Term_Debt_To_Equity_Ratio_Below_Industry`
-- `Assets_To_Liability_Ratio_Above_Industry` / `Sales_To_Assets_Ratio_Above_Industry`
-- `Growth_Above_Industry` / `EPS_Growth_Above_Industry` / `EPS_Current_Change_Above_Industry`
-- `Margin_Gt_Industry_Sustained` — Net margin > sector median for multiple consecutive years
-
-### Raw Ratios (used by List 2, dropped from final ML dataset):
-- `Market_Cap_Raw`, `PE_Raw`, `Free_Cash_Flow_Raw`, `PB_Raw`, `Div_Yield_Raw`, `ROE_Raw`
-- `Net_Profit_Margin_Raw`, `Net_Profit_Margin_Prev_Raw`, `Net_Profit_Margin_Prev_2_Raw`
-- `Gross_Profit_Margin_Raw`, `Operating_Margin_Raw`
-- `Sales_3yr_Growth_Raw`, `EPS_3yr_Growth_Raw`, `Current_EPS_Change_Raw`
-- `Debt_To_Assets_Ratio_Raw`, `Assets_To_Liability_Ratio_Raw`
-- `Long_Term_Debt_To_Equity_Raw`, `Sales_To_Assets_Ratio_Raw`
-
----
-
-## Labelling Strategy
-
-### Feature Selection Phase: Quintile Buckets
-- Rank all stocks by 6-month excess return within each quarterly cohort
-- Top 20% → label 1, Bottom 20% → label 0, Middle 60% → discard
-- Purpose: clean signal for identifying which rules matter
-
-### Prediction Phase: Cross-Sectional Percentile Ranking
-- Full 0.0–1.0 percentile rank of excess returns within each cohort
-- Regression target (not classification)
-- Market-neutral by construction: median is always 0.5 regardless of bull/bear
-- Tree-based models (XGBoost/RF) naturally learn to separate extremes
-
-### Target Variables:
-- `Forward_6m_Return` — Raw 6-month stock return
-- `Forward_6m_Excess_Return` — Stock return minus SPY return over same window
-- Percentile ranking and quintile labels computed from excess return during ML phase
-
-### Time Horizons:
-- Primary: 6 months forward (calendar months via pd.DateOffset)
-- Secondary: 12 months forward (future comparison)
-
----
-
-## Screening Timeline
-
-### Training Data:
-- `2023-12-31` — Q4 2023 snapshot
-- `2024-06-30` — Q2 2024 snapshot
-- `2024-12-31` — Q4 2024 snapshot
-
-### Testing Data:
-- `2025-06-30` — Q2 2025 snapshot (6-month forward return available through Dec 2025)
-
-### Why these dates:
-- yfinance provides ~4 years of annual financials, so screening dates before ~2023 leave very limited historical depth after applying the 90-day reporting lag
-- Training dates are spaced 6 months apart to avoid overlapping forward return windows
-- Test date is the most recent point where the full 6-month forward return is observable
+- `Assets_To_Liability_Ratio_Above_Industry` ✓ SELECTED (Tier 2) / `Sales_To_Assets_Ratio_Above_Industry`
+- `Growth_Above_Industry` / `EPS_Growth_Above_Industry` / `EPS_Current_Change_Above_Industry` ✓ SELECTED (Tier 2)
+- `Margin_Gt_Industry_Sustained`
 
 ---
 
 ## Known Biases & Limitations
 
-### Survivorship Bias
-Using today's S&P 500 membership for all historical quarters. Companies that were dropped or delisted are excluded. Accepted for portfolio-project scope.
+### Data Limitations
+- **Survivorship bias:** Using today's S&P 500 membership for all historical quarters
+- **Restated financials:** yfinance serves current versions of historical statements
+- **yfinance depth:** ~4 years of annual financials; dynamic fallback (3yr→2yr→1yr) handles thin data
+- **Single regime:** Training data covers 2023-2024 (bull market); insufficient regime diversity for robust prediction
 
-### Look-Ahead Bias (Mitigated)
-- Financial statements filtered with 90-day reporting lag
-- `.info` fallbacks removed for historical training data (PEG ratio and ROE now always calculated from statements)
-- `.info` values (sector, etc.) that don't change over time are acceptable
-
-### Restated Financials
-yfinance serves current versions of historical statements. Rare in S&P 500; acknowledged.
-
-### yfinance Data Depth
-~4 years of annual financials. Dynamic fallback extraction (3yr → 2yr → 1yr) handles cases where fewer years are available after date filtering.
-
-### Industry-Relative Rules at Small Scale
-With only 10 tickers per sector, sector medians are unreliable. This resolves at full S&P 500 scale (~50+ stocks per major sector).
+### Design Mitigations
+- **90-day reporting lag:** Financial statements filtered to avoid look-ahead bias
+- **No `.info` in training data:** PEG and ROE calculated from statements only
+- **NaN propagation:** Missing data → NaN, never defaulted to 0 (except PEG rules where negative EPS growth definitively fails the criterion)
+- **Transparent scoring over black-box prediction:** ML identified features; final screening is rule-based and explainable
 
 ---
 
-## Phase A — Remaining Roadmap
+## Phase B Architecture (Next — Agentic Live Layer)
 
-### Step 1: Apply Bug Fixes to test.py (documented in conversation)
-- Percentile rankings grouped by Screening_Date
-- Remove .info look-ahead bias
-- Add API throttling
-- Add SPY excess return
-- Add back PB_Less_2, Zero_Dividend, Sales_Growing_Sustained
+### Overview
+Takes the top-scored stocks from the screener (Total_Score ≥ 8) and runs qualitative assessment via LLM-powered agents.
 
-### Step 2: Full S&P 500 Extraction
-- Run pipeline on all ~500 tickers
-- Expected output: ~1,500 training rows (500 × 3 dates), ~500 test rows
-- Estimated runtime: ~30-45 minutes with throttling
-- Monitor with audit reports
-
-### Step 3: Feature Selection
-- Compute quintile labels from Forward_6m_Excess_Return per screening date
-- Run RF importance + Boruta or SHAP on quintile-labelled data
-- Identify top predictive rules
-
-### Step 4: Prediction Model
-- Train XGBoost/RF regression on percentile-ranked excess returns
-- Selected features only
-- Validate: do model-predicted top quintile stocks actually land in real top quintile?
-
-### Step 5: Live Screening
-- Run trained model on test set (2025-06-30 data)
-- Output: ranked shortlist for Phase B agent layer
-
----
-
-## Phase B Architecture (Future — Agentic Live Layer)
-
-### Proposed Agent Pipeline:
+### Proposed Agent Pipeline
 
 ```
-Phase A Output (ranked shortlist)
-        │
-        ▼
-News/Sentiment Agent  →  fetch & summarise recent articles
-        │
-        ▼
-ESG Agent             →  retrieve ESG data/reports (RAG)
-        │
-        ▼
-Management Signal     →  CEO changes, insider trading,
-Agent                    executive news
-        │
-        ▼
-Synthesis Agent       →  combines quant score + qualitative
-                         signals → final assessment
-        │
-        ▼
-Final Report          →  investment thesis per stock
+┌──────────────────┐
+│  Screener Output │  (Ranked candidates, score ≥ 8)
+└────────┬─────────┘
+         │
+         ▼
+┌──────────────────┐
+│  News/Sentiment  │  Agent 1: fetch & summarise recent articles
+│  Agent           │
+└────────┬─────────┘
+         │
+         ▼
+┌──────────────────┐
+│  ESG Agent       │  Agent 2: retrieve ESG data/reports (RAG)
+└────────┬─────────┘
+         │
+         ▼
+┌──────────────────┐
+│  Management      │  Agent 3: CEO changes, insider trading,
+│  Signal Agent    │  executive news
+└────────┬─────────┘
+         │
+         ▼
+┌──────────────────┐
+│  Synthesis Agent │  Combines quant score + qualitative signals
+│                  │  → final ranked assessment
+└────────┬─────────┘
+         │
+         ▼
+┌──────────────────┐
+│  Final Report    │  Investment thesis per stock
+└──────────────────┘
 ```
 
-### Tech Stack (tentative):
+### Tech Stack (tentative — to be decided at Phase B start)
 - Start simple: LangChain with tools + sequential chain
 - Graduate to LangGraph if workflow needs branching/cycles
-- Inference: API-based initially, swap to local vLLM (RTX 4070 Ti SUPER) later
-- Vector store: FAISS or Chroma for RAG components
+- Inference: API-based initially (Claude/OpenAI), swap to local vLLM (RTX 4070 Ti SUPER, 16GB) later
+- Vector store: FAISS or Chroma for RAG components (ESG reports, etc.)
 
 ---
 
 ## Tech Stack Summary
 
-### Phase A (Quantitative):
-- Python, pandas, numpy
+### Phase A (Quantitative) — Complete:
+- Python, pandas, numpy, yfinance
 - SQLite (feature store)
-- yfinance (data collection)
-- scikit-learn (Random Forest, Boruta)
-- XGBoost (prediction model)
-- SHAP (model interpretability)
+- XGBoost, scikit-learn (Random Forest, Lasso)
+- SHAP, Boruta (feature selection)
+- Optuna (hyperparameter tuning)
 
-### Phase B (Agentic — future):
+### Phase B (Agentic — next):
 - LangChain / LangGraph
 - vLLM or API-based LLM inference
 - FAISS/Chroma (vector store for RAG)
@@ -301,29 +287,35 @@ Final Report          →  investment thesis per stock
 
 ---
 
-## File Structure (Current → Target)
+## Repository Structure
 
 ```
 quantamental-screener/
-├── test.py                       # Current: main pipeline script
-├── ml_stock_pipeline.db          # SQLite: training + testing tables
-├── ML_Training_Data.csv          # Exported training features
-├── ML_Testing_Data.csv           # Exported testing features
-├── missing_data_report_*.csv     # Audit reports
-│
-├── src/                          # Future: modularised version
-│   ├── data_collector.py
-│   ├── rules_engine.py
-│   ├── snapshot_generator.py
-│   ├── labeller.py
-│   ├── feature_selector.py
-│   └── predictor.py
-├── agents/                       # Phase B
-│   ├── news_agent.py
-│   ├── esg_agent.py
-│   ├── management_agent.py
-│   └── synthesis_agent.py
-├── config.py
+├── config.py                     # All tuneable parameters and paths
+├── pipeline.py                   # Data extraction + feature engineering
+├── features_xgboost.py           # XGBoost training + SHAP analysis
+├── feature_selection.py          # Boruta + Permutation Importance + consensus
+├── model_comparison.py           # Lasso + RF + comparison report
+├── test_evaluation.py            # Test set evaluation
+├── screener.py                   # Final scoring system
+├── data/
+│   ├── ml_stock_pipeline.db      # SQLite feature store
+│   ├── ML_Training_Regression.csv
+│   └── ML_Testing_Regression.csv
+├── models/
+│   └── xgboost_model.json        # Saved XGBoost model
+├── reports/
+│   ├── feature_importance.csv    # SHAP + XGBoost Gain rankings
+│   ├── feature_consensus.csv     # 4-method consensus table
+│   ├── lasso_coefficients.csv    # Lasso feature selection
+│   ├── model_comparison.csv      # 3-model comparison
+│   ├── screener_results.csv      # Full scored stock list
+│   ├── phase_b_candidates.csv    # Shortlist for agent layer
+│   ├── shap_feature_importance.png
+│   ├── val_predicted_vs_actual.png
+│   └── test_predicted_vs_actual.png
+├── agents/                       # Phase B (next)
+├── .gitignore
 ├── CLAUDE.md
 └── README.md
 ```
@@ -335,14 +327,12 @@ quantamental-screener/
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
 | Project direction | Stock screener over Skills Gap Analyzer | Existing codebase, broader skill showcase |
-| Database design | Feature store (computed rules), not raw accounting data | Avoids rewriting Python logic as SQL; ML-ready output |
-| Feature selection labelling | Quintile buckets (top/bottom 20%) | Clean signal, removes noisy borderline cases |
-| Prediction labelling | Cross-sectional percentile rank (0.0–1.0) | Market-neutral, retains all data |
-| Time horizon | 6-month primary | Matches fundamental signal horizon |
-| Screening frequency | Semi-annual snapshots (3 training + 1 test) | Balances yfinance depth limitations vs sample size |
-| Stock universe | S&P 500 (expand later) | Manageable size, good data coverage |
-| Data source | yfinance (accept limitations) | Free, sufficient for portfolio project |
-| Dynamic extraction | 3yr → 2yr → 1yr fallback for growth/streak rules | Maximises data availability within yfinance's depth |
-| NaN handling | Propagate NaN (not default to 0) | Honest missing data for ML; avoids false negatives |
-| .info usage | Removed from training data to prevent look-ahead bias | Manual calculations from statements are more reliable |
-| Phase B entry point | Simple LangChain first, LangGraph if needed | Beginner-friendly, avoid premature complexity |
+| Database design | Feature store (computed rules), not raw data | ML-ready output, avoids SQL complexity |
+| Target variable | Cross-sectional percentile rank (0.0–1.0) | Market-neutral, retains all data |
+| Feature selection | 4-method consensus (SHAP, Permutation, Boruta, Lasso) | Robust; no single method is reliable alone |
+| Final screening | Transparent scoring, not ML prediction | ML failed to generalise; scoring is explainable and robust |
+| Tier weighting | Boruta-confirmed = 2x, consensus-only = 1x | Evidence-proportional weighting |
+| Negative Lasso coefficients | Kept features, ignored sign | Signs are regime-specific; features are fundamentally sound |
+| Model comparison | Lasso + RF + XGBoost (simple → complex) | Demonstrated complexity doesn't help with limited data |
+| NaN handling | Propagate NaN throughout, treat as 0 in scoring | Honest in training, conservative in screening |
+| Phase B entry | Simple LangChain first | Beginner-friendly, avoid premature complexity |

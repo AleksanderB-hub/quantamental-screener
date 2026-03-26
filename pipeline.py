@@ -311,6 +311,7 @@ def get_robust_financials(ticker_symbol, hist, fin, bs, cash, info, screening_da
              total_liab_curr = (assets_curr - equity_curr) if (pd.notna(assets_curr) and pd.notna(equity_curr)) else np.nan
 
         features['Ticker'] = ticker_symbol
+        features['Company_Name'] = info.get('shortName', info.get('longName', 'Unknown'))
         features['Sector'] = info.get('sector', 'Unknown')
         features['Market_Cap_Raw'] = mkt_cap 
         features['PE_Raw'] = trailing_pe
