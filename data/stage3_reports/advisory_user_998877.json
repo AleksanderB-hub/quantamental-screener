@@ -1,0 +1,23 @@
+{
+  "user_id": "user_998877",
+  "profile": {
+    "user_id": "user_998877",
+    "profile_label": "Moderate",
+    "agent_parameters": {
+      "time_horizon_years": 2,
+      "primary_objective": "INCOME",
+      "esg_preference": "NEUTRAL",
+      "liquidity_needs": "MEDIUM",
+      "max_drawdown_capacity_pct": 25,
+      "capacity_score": 12,
+      "tolerance_score": 9
+    }
+  },
+  "recommendations": [
+    {
+      "ticker": "EQT",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2013 EQT's strong earnings growth and 80.8% EPS projection align with your income objective, and the 25% drawdown tolerance accommodates natural gas sector volatility, but the concentrated insider selling by senior executives signals management caution that warrants waiting for clarity on 2026 guidance before committing capital. The neutral market sentiment and commodity price exposure create unnecessary near-term uncertainty for a 2-year horizon focused on reliable income generation. Monitor for stabilization of insider activity and clearer 2026 operational guidance before reconsidering entry."
+    }
+  ]
+}

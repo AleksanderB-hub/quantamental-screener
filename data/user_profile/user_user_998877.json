@@ -1,0 +1,13 @@
+{
+  "user_id": "user_998877",
+  "profile_label": "Moderate",
+  "agent_parameters": {
+    "time_horizon_years": 2,
+    "primary_objective": "INCOME",
+    "esg_preference": "NEUTRAL",
+    "liquidity_needs": "MEDIUM",
+    "max_drawdown_capacity_pct": 25,
+    "capacity_score": 12,
+    "tolerance_score": 9
+  }
+}

@@ -104,14 +104,16 @@ DELAY_BETWEEN_SEARCHES = 2  # seconds
 
 STAGE2_DIR = Path("data/stage2_processed")
 STAGE2_DIR.mkdir(parents=True, exist_ok=True)
-
 LOCAL_MODEL_URL = "http://localhost:8000/v1"
 LOCAL_MODEL_NAME = "Qwen/Qwen2.5-7B-Instruct-AWQ"
 
 # STAGE 3
 
-# --- CONFIG ---
 STAGE3_DIR = Path("data/stage3_reports")
 VECTORSTORE_DIR = Path("data/vectorstores")
 STAGE3_DIR.mkdir(parents=True, exist_ok=True)
 VECTORSTORE_DIR.mkdir(parents=True, exist_ok=True)
+
+# STAGE 4
+USER_PROFILE_DIR = Path("data/user_profile")
+USER_PROFILE_DIR.mkdir(parents=True, exist_ok=True)

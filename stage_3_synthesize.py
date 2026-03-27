@@ -134,6 +134,13 @@ def synthesise_report(ticker: str, vector_store: FAISS) -> dict:
         category="MANAGEMENT",
         k=3
     )
+    earning_evidence = retrieve_evidence_hybrid(
+        vector_store, 
+        query=f"CEO executive management leadership insider {ticker}",
+        category="EARNINGS",
+        k=3
+    )
+    
     
     # --- BUILD SYNTHESIS PROMPT ---
     messages = [
@@ -149,6 +156,7 @@ def synthesise_report(ticker: str, vector_store: FAISS) -> dict:
 
         Required keys:
         - ticker: the stock ticker
+        - company: the company name
         - overall_assessment: BUY, HOLD, or AVOID
         - confidence: HIGH, MEDIUM, or LOW
         - investment_thesis: 2-3 paragraph analysis explaining your assessment
@@ -156,12 +164,13 @@ def synthesise_report(ticker: str, vector_store: FAISS) -> dict:
         - bear_case: 2-3 key risks or concerns
         - esg_assessment: any ESG concerns or "No material ESG concerns identified"
         - management_assessment: leadership stability and any red flags
+        - earnings_assessment: analysis of recent earnings beats/misses, forward guidance updates, and EPS/revenue momentum 
         - catalyst: the single most important near-term catalyst (positive or negative)
         - suggested_action: one concrete sentence on what an investor should do"""),
         
         HumanMessage(content=f"""
-        STOCK: {ticker}
-        COMPANY: {stage2_data.get('company_name', ticker)}
+        ticker: {ticker}
+        company: {stage2_data.get('company_name', ticker)}
 
         === QUANTITATIVE SCORE (Phase A) ===
         (Score to be loaded from screener results — placeholder for now)
@@ -183,6 +192,9 @@ def synthesise_report(ticker: str, vector_store: FAISS) -> dict:
 
         === RETRIEVED EVIDENCE: MANAGEMENT ===
         {chr(10).join(management_evidence)}
+        
+        === EARNINGS EVIDENCE: EARNINGS ===
+        {chr(10).join(earning_evidence)}        
 
         Based on ALL of the above, produce your final investment assessment as JSON.
         """)

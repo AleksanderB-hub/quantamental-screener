@@ -14,8 +14,3 @@ results = search.invoke("Goldman Sachs recent news march 2026")
 print(results)
 
 
-Alright wiht that updates in place, I would liek for you to provde a detiled overview of the Stage 3 script with a focus on RAG and Summary components. 
-
-
-
-I need to understand how they work in principle, how and why we configured them in this way, and the important concepts that are necessary to understand to deploy them. 
