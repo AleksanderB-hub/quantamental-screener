@@ -1,0 +1,234 @@
+{
+  "ticker": "INCY",
+  "company_name": "Healthcare",
+  "stage1_claude_signals": {
+    "news_summary": "Incyte reported mixed Q4 and full-year 2025 results on February 10, 2026, with quarterly revenue of $1.51 billion and annual revenue of $5.14 billion, beating revenue estimates by 12% but missing earnings estimates by 7.06%. The company issued cautious 2026 product revenue guidance of $4.77\u2013$4.94 billion, below prior-year levels, raising concerns about higher expenses and near-term growth headwinds. Key upcoming catalysts include the Jakafi XR launch in mid-2026 and povorcitinib data readouts in the second half of the year.",
+    "sentiment": "NEUTRAL",
+    "earnings_outlook": "Analysts maintain an average price target of approximately $99.62\u2013$104.00, suggesting modest upside from current levels, with the stock trading at roughly 18x forward earnings. However, the cautious 2026 revenue guidance and the looming 2028 Jakafi patent expiration temper near-term optimism.",
+    "esg_flags": "NONE specific to Incyte; general ESG regulatory scrutiny is increasing across the pharmaceutical and life sciences sector, which may affect compliance costs.",
+    "management_signals": "No specific Incyte leadership changes or insider trading activity identified in the search results; broader industry-level SEC enforcement activity in pharma and life sciences is noted as an elevated risk for 2026.",
+    "key_risks": "The 2028 patent expiration of Jakafi (ruxolitinib), Incyte's primary revenue driver, poses a significant long-term revenue cliff. Near-term risks include below-consensus 2026 revenue guidance and rising operating expenses that could pressure margins.",
+    "confidence": "MEDIUM"
+  },
+  "stage2_local_signals": [
+    {
+      "source_category": "recent_news",
+      "original_snippet": "Incyte reported its fourth-quarter and full-year2025results on10February2026, with revenue rising to US$1.51 billion for the quarter and US$5.14 billion for the year, alongside higher net income and earnings per share. At the same time, the company issued cautious2026product revenue guidance of US$4.77 billion to US$4.94 billion and faced pressure from higher expenses and concern about ...",
+      "classification": {
+        "sentiment": "POSITIVE",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "Incyte reported strong revenue and earnings growth in Q4 and FY 2025, but faces cautious outlook for 2026 due to higher expenses."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "Should You Buy or Sell IncyteStock? Get The LatestINCYStockAnalysis, Price Target, Earnings Estimates, Headlines, and Short Interest at MarketBeat.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "OTHER",
+        "relevance": "MEDIUM",
+        "summary": "MarketBeat provides analysis, price targets, earnings estimates, headlines, and short interest for Incyte stock."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "Incyte (Nasdaq:INCY) scheduled its fourth quarter and year-end2025financial results release and conference call for Tuesday, February10,2026. The press release will be issued at 7:00 a.m. ET, followed by a conference call and webcast with slides at 8:00 a.m. ET.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "Incyte announced the dates for its Q4 2025 financial results release and conference call."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "by Zacks Equity Research Published on February 10,2026 Incyte (INCY) delivered earnings and revenue surprises of -7.06% and +12.02%, respectively, for the quarter ended December2025.",
+      "classification": {
+        "sentiment": "POSITIVE",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "Incyte (INCY) exceeded revenue expectations but missed earnings by a small margin in the latest quarter."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "A detailed overview of Incyte Corporation (INCY)stock, including real-time price, chart, key statistics,news, and more.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "OTHER",
+        "relevance": "MEDIUM",
+        "summary": "This snippet provides an overview of Incyte Corporation's stock information."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "February 27, 2026 -INCY's currentprice target is $104.00. Learn why top analysts are making this stock forecast for Incyte at MarketBeat.",
+      "classification": {
+        "sentiment": "POSITIVE",
+        "category": "ESG",
+        "relevance": "MEDIUM",
+        "summary": "Top analysts predict Incyte's stock price to reach $104.00 by February 27, 2026."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "December 15, 2025 -Currently trading at $95.41, Incyte\u2019s ... of $55.17 to $108.26. Despite the recent price dip, theaverage analyst target price of $99.62 suggests a potential upside of 4.41%, signaling a positive outlook from the investment ...",
+      "classification": {
+        "sentiment": "POSITIVE",
+        "category": "MACRO",
+        "relevance": "HIGH",
+        "summary": "The snippet indicates a positive outlook for Incyte's stock price, with an average analyst target price suggesting potential upside."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "1 day ago -Trailing total returns as of 4/1/2026, which may include dividends or other distributions. Benchmark is S&P 500 (^GSPC) . ... Analyst HC Wainwright & Co.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "MACRO",
+        "relevance": "LOW",
+        "summary": "The snippet provides information on trailing total returns and does not specifically mention INCY."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "3 weeks ago -Analyze Incyte (INCY) stock: Current price \u2713 Dividend yield \u2713 Forecast & target price \u2713 Fundamentals \u2713 Detailed Incyte stock analysis on Eulerpool. ISIN US45337C1027",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "OTHER",
+        "relevance": "MEDIUM",
+        "summary": "A detailed stock analysis of Incyte (INCY) is available on Eulerpool."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "February 12, 2026 -While the stock's current valuation (trading at roughly 18x forward earnings) looks attractive compared to its growth profile, the 2028 patent expiration remains the \"elephant in the room.\" Investors should watch the Jakafi XR launch in mid-2026 and the povorcitinib data readouts in the second half of the year. If Incyte can prove it can thrive without its original blockbuster, the current dip may look like a generational buying opportunity.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "PRODUCT",
+        "relevance": "HIGH",
+        "summary": "The article discusses potential future events for Incyte, including the Jakafi XR launch and povorcitinib data readouts, while noting the looming patent expiration as a key concern."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "Health, safety andenvironmentalregulation is evolving constantly. Risks change and diversify. Businesses cannot afford to ignore the consequences of non\u2011compliance or the risks of falling behind changes in legislation and regulatory expectations. There are clear opportunities, though, for organisations that excel inenvironmental,socialandgovernance('ESG') performance. For those ...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "ESG",
+        "relevance": "MEDIUM",
+        "summary": "The snippet discusses the evolving nature of health, safety, and environmental regulations and their impact on businesses."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "As corporations increasingly focus onenvironmental,social, andgovernance(ESG) standards, advisory partnerships are subject to amplified scrutiny. Raymond James has been noted for their involvement in past disputes, raising alarms about the implications for InspiredHealthcare'sESGcommitments.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "ESG",
+        "relevance": "MEDIUM",
+        "summary": "Raymond James' past disputes are raising concerns about InspiredHealthcare's ESG commitments."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "Environmental,SocialandGovernance(ESG) factors are increasingly influencing both strategic direction and operational decision-making within the health and care & life sciences sectors. Characterised by complex global supply chains, reliance on sensitive data, and a significantenvironmentalandsocialfootprint, the sector is subject to growing scrutiny from regulators, investors, and ...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "ESG",
+        "relevance": "MEDIUM",
+        "summary": "ESG factors are becoming more important in decision-making across the health and care & life sciences sectors."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "Political and regulatory changes have contributed to a turbulent time forenvironmentalandsocialgovernance(ESG) issues in 2025. On the one hand, a dramatic change in governmental stance in the ...",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "ESG",
+        "relevance": "MEDIUM",
+        "summary": "Regulatory changes have led to turbulence in ESG issues."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "Many businesses responded by embeddingESGmore deeply into core operations, linkingenvironmentalandsocialperformance with innovation, risk management, and long-term value creation.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "ESG",
+        "relevance": "MEDIUM",
+        "summary": "Businesses are integrating ESG into core operations for long-term value creation."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "Jan 23,2026\u00b7Nevertheless, with many challenges in the rearview mirror, the SEC\u2019s Enforcement Division appears positioned for increased enforcement activity in2026\u2013 particularly as to public companies andexecutivesin the pharmaceutical, life sciences, andhealthcareindustries.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "REGULATORY",
+        "relevance": "MEDIUM",
+        "summary": "The SEC's Enforcement Division is expected to increase its enforcement activities in 2026, especially targeting executives in pharmaceutical and healthcare industries."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "Jan 15,2026\u00b7NEW YORK, Jan 15 (Reuters) - A formerchiefexecutiveof Emergent BioSolutions (EBS.N) was charged on Thursday withinsidertradingby New York Attorney General Letitia James for allegedly...",
+      "classification": {
+        "sentiment": "UNKNOWN",
+        "category": "OTHER",
+        "relevance": "LOW",
+        "summary": "Failed to classify",
+        "error": "Expecting value: line 2 column 16 (char 17)"
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "Jan 15,2026\u00b7\u201cCorporateexecutiveswho useinsiderinformation to illegallytradecompany stocks and make a profit betray the public\u2019s trust,\u201d James said in a statement.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "REGULATORY",
+        "relevance": "MEDIUM",
+        "summary": "A regulatory official expressed concern over insider trading, which is negative for INCY."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "Jan 11,2026\u00b7While these prearranged, non-discretionary transactions are designed to insulateexecutivesfrominsidertradingallegations, they often spark investor scrutiny.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "MANAGEMENT",
+        "relevance": "MEDIUM",
+        "summary": "Non-discretionary transactions aimed at preventing insider trading allegations are subject to investor scrutiny."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "Jul 9, 2025 \u00b7Despite a turbulent start to the year, thehealthcareservices giant\u2019srecentleadershipchangesandinsiderinvestmentssignal a potential path to recovery. And investors would be wise to pay attention: whenexecutivesare buying big, it often signals the bottom is in.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "MANAGEMENT",
+        "relevance": "HIGH",
+        "summary": "Incy's recent leadership changes and insiders' investments suggest potential for recovery, as executive purchases often indicate market bottoms."
+      }
+    }
+  ],
+  "signal_summary": {
+    "total_signals": 20,
+    "sentiment_breakdown": {
+      "positive": 4,
+      "neutral": 10,
+      "negative": 5
+    },
+    "high_relevance_count": 6,
+    "category_breakdown": {
+      "MANAGEMENT": 2,
+      "OTHER": 4,
+      "ESG": 6,
+      "PRODUCT": 1,
+      "MACRO": 2,
+      "EARNINGS": 3,
+      "REGULATORY": 2
+    }
+  }
+}

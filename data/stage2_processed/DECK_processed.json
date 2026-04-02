@@ -1,0 +1,233 @@
+{
+  "ticker": "DECK",
+  "company_name": "Consumer Cyclical",
+  "stage1_claude_signals": {
+    "news_summary": "Deckers Outdoor (DECK) stock was recently trading around $100.07, reflecting a modest decline of approximately 1.17%. Analysts have been offering insights on DECK alongside other consumer cyclical companies. The stock has been discussed as a potential comeback pick among S&P laggards poised for a breakout in 2026.",
+    "sentiment": "NEUTRAL",
+    "earnings_outlook": "Analyst earnings estimates and upcoming earnings dates are tracked on Nasdaq and other financial platforms, though specific consensus figures were not available in the search results. Investors are advised to monitor DECK's next earnings announcement for performance versus expectations.",
+    "esg_flags": "NONE",
+    "management_signals": "NONE",
+    "key_risks": "Consumer cyclical stocks like DECK are sensitive to macroeconomic conditions and discretionary spending slowdowns. The stock's recent price decline and its classification among S&P laggards suggest potential near-term headwinds in investor sentiment.",
+    "confidence": "LOW"
+  },
+  "stage2_local_signals": [
+    {
+      "source_category": "recent_news",
+      "original_snippet": "Comparedtothe closing price on Tuesday 03/31/2026on BTT of $100.07, this is a drop of 1.17%. ... IsDeckersOutdoorstocka Buy, Sell or Hold ...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "OTHER",
+        "relevance": "MEDIUM",
+        "summary": "The stock price of Deckers Outdoor has slightly decreased compared to the previous day."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "Analysts Offer Insights onConsumerCyclicalCompanies: Planet Fitness (PLNT),DeckersOutdoor (DECK) and Amcor (AMCR)",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "OTHER",
+        "relevance": "MEDIUM",
+        "summary": "Analysts provide insights on consumer cyclical companies including Deckers Outdoor (DECK)."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "Skiptonavigation Skiptomain content Skiptoright column ... FAFSA2026-27 ...2025All rights reserved.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "REGULATORY",
+        "relevance": "LOW",
+        "summary": "The snippet does not contain any information related to DECK."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "Skiptonavigation Skiptomain content Skiptoright column ... FAFSA2026-27 ...2026All rights reserved.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "OTHER",
+        "relevance": "LOW",
+        "summary": "The snippet does not contain any information related to DECK."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "If history repeats itself, the bottom quartile of2025performance may drive the top quartile of2026results. ... top-rated and best performing ...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "MACRO",
+        "relevance": "LOW",
+        "summary": "The snippet discusses potential future performance trends without specific information about DECK."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "Read more about Carnival Co. &'s stockforecastand price target.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "PRODUCT",
+        "relevance": "MEDIUM",
+        "summary": "The snippet discusses Carnival Co.'s stock forecast and price target."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "AboutEarningsDate. Nasdaq provides visual representation ofanalystexpectedearningsgrowth. Read ourearningsreport guide before you consider theforecastinformation when making investment decisions.",
+      "classification": {
+        "sentiment": "POSITIVE",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "Nasdaq offers a visual tool for analyst expected earnings growth and advises reading the earnings report guide."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "Key financial results fromDECK's most recentDECKearningsannouncement, comparing actual revenue and EPS figures againstanalystestimates. Check performance versusDECKearningsdate expectations at a glance.",
+      "classification": {
+        "sentiment": "POSITIVE",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "DECK's earnings announcement shows revenue and EPS figures beating analyst estimates."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "EarningsHub is a one-stop shop for everything related to company quarterlyearnings:earningscalendar,earningscalls,earningsestimates, actuals, and alerts to stay on top of events.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "EARNINGS",
+        "relevance": "LOW",
+        "summary": "EarningsHub provides resources for tracking company quarterly earnings."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "Browse the Top 1000Decksof the current meta. Find the bestdeckfor your specific card collection for the March2026season.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "PRODUCT",
+        "relevance": "HIGH",
+        "summary": "Provides information on the top decks for a specific card collection and season."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "Environmental,social, andgovernance(ESG) is shorthand for an investing principle that prioritizesenvironmentalissues,socialissues, and corporategovernance.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "ESG",
+        "relevance": "HIGH",
+        "summary": "The snippet explains the concept of ESG investing."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "Environmental,social, andgovernance(ESG) performance and firm value: Evidence from Chinese manufacturing firms.Environmental,social, andgovernance(ESG) investing: A balanced analysis of the theory and practice of a sustainable portfolio.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "ESG",
+        "relevance": "MEDIUM",
+        "summary": "The snippet discusses ESG performance and its relation to firm value, as well as a balanced analysis of ESG investing."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "ESGmetrics. Summary.Environmental.Social.Governance. Summary.(*) AdditionalESGfactor not mentioned in the regulation but provided for transparency purposes. Data available as of Feb.2026. The information was updated as part of the regular monthly updatecycle.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "ESG",
+        "relevance": "HIGH",
+        "summary": "DECK provided additional ESG factors for transparency as part of their regular monthly update cycle."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "# Also see: Benjamin Zycher onESG(Environmental,Social, &GovernanceResponsibility): \u2018A blatant effort to use private-sector resources for ideological purposes\u2019.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "ESG",
+        "relevance": "MEDIUM",
+        "summary": "An analyst criticizes ESG efforts as an ideological misuse of private-sector resources."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "In the next 12 months, the GermanyEnvironmental,SocialAndGovernance(esg) Market will create opportunities that current industry players are not yet prepared for. The organizations that act first will define the competitive landscape. This report gives you the data to be one of them.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "ESG",
+        "relevance": "HIGH",
+        "summary": "The ESG market in Germany presents upcoming opportunities for organizations to define the competitive landscape."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "Achiefexecutiveofficer(CEO),[1] also known as achiefexecutiveormanagingdirector, is the top-ranking corporate officer charged with themanagementof a company or a nonprofit organization.Retrieved2026-01-24. ^ \"Association ofChiefExecutivesof Voluntary Organisations\".",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "MANAGEMENT",
+        "relevance": "MEDIUM",
+        "summary": "The snippet discusses the role of a CEO in managing a company."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "InsiderTradingTracker.Typical value range is from 0.1 to 0.64. The Year-Over-Year growth is -61.26%. GuruFocus provides the current actual value, an historical data chart and related indicators forInsiderBuy/Sell Ratio - USAConsumerCyclical,CEO- last updated on 2024-08-01.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "MANAGEMENT",
+        "relevance": "MEDIUM",
+        "summary": "The year-over-year growth in insider selling ratio is significantly negative."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "Check out theInsiderTradingdemo on Steam: https://store.steampowered.com/app/3271420/Insider_Trading_Demo/This is fresh for YouTube content, not a stinky ...",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "MANAGEMENT",
+        "relevance": "LOW",
+        "summary": "The snippet mentions an Insider Trading demo on Steam but does not provide relevant information about DECK."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "Insidertradingon prediction markets is lucrative. Finding and copying saidinsidertrading, also. By Ece Yildirim Published January 12,2026. Reading time 3 minutes. A Polymarkettradingscreen is seen.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "MANAGEMENT",
+        "relevance": "MEDIUM",
+        "summary": "The snippet discusses insider trading on prediction markets, which is negatively classified."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "InsiderTrades- O Stock Forecast, Price & News (REALTY Income) | Ma\u2026",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "MANAGEMENT",
+        "relevance": "LOW",
+        "summary": "The snippet is about insider trades and does not mention DECK."
+      }
+    }
+  ],
+  "signal_summary": {
+    "total_signals": 20,
+    "sentiment_breakdown": {
+      "positive": 2,
+      "neutral": 11,
+      "negative": 7
+    },
+    "high_relevance_count": 6,
+    "category_breakdown": {
+      "MANAGEMENT": 5,
+      "MACRO": 1,
+      "OTHER": 3,
+      "PRODUCT": 2,
+      "REGULATORY": 1,
+      "ESG": 5,
+      "EARNINGS": 3
+    }
+  }
+}

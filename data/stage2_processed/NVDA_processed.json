@@ -1,0 +1,233 @@
+{
+  "ticker": "NVDA",
+  "company_name": "Technology",
+  "stage1_claude_signals": {
+    "news_summary": "NVIDIA (NVDA) is currently trading at approximately $172.65, down 8.5% year-to-date and 16.6% below its 52-week high of $207.04. Despite the recent pullback, the stock has shown upward movement recently, and long-term investors have seen extraordinary returns \u2014 a $1,000 investment five years ago is now worth nearly $13,000. The company delivered a strong Q4 FY2026 earnings report, posting $68 billion in revenue and beating guidance on nearly every metric.",
+    "sentiment": "POSITIVE",
+    "earnings_outlook": "NVIDIA smashed Q4 FY2026 expectations with $68 billion in revenue, continuing its streak of blowout earnings driven by data center demand. Analysts maintain a favorable outlook for 2026, with the stock trading at a P/E of 46, which many consider reasonable given its growth trajectory and recent pullback.",
+    "esg_flags": "No NVDA-specific ESG concerns identified in search results. General ESG regulatory tightening in the EU and UK in 2026 may have indirect implications for NVIDIA's supply chain and AI governance practices, but no direct flags were found.",
+    "management_signals": "No NVIDIA-specific leadership changes or notable insider trading activity identified in the search results.",
+    "key_risks": "NVDA faces valuation risk given its elevated P/E ratio of 46, making it vulnerable to sharp corrections if growth expectations are not met. Additionally, the stock's 16.6% decline from its 52-week high and broader macroeconomic uncertainty, including potential export restrictions and geopolitical tensions affecting AI chip sales, represent meaningful downside risks.",
+    "confidence": "MEDIUM"
+  },
+  "stage2_local_signals": [
+    {
+      "source_category": "recent_news",
+      "original_snippet": "Find the latest NVIDIA Corporation(NVDA)stockquote, history,newsand other vital information to help you with yourstocktrading and investing.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "OTHER",
+        "relevance": "LOW",
+        "summary": "The snippet provides a general overview of how to access information about NVDA for stock trading and investing."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "16 hours ago \u00b7Should You Buy or Sell NVIDIAStock? Get The LatestNVDAStockAnalysis, Price Target, Dividend Info, Headlines, and Short Interest at MarketBeat.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "OTHER",
+        "relevance": "MEDIUM",
+        "summary": "MarketBeat provides analysis, price target, dividend info, headlines, and short interest for NVIDIA stock."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "20 hours ago \u00b7Stockforecasts and analyst price target predictions for NVIDIA Corporation (NVDA)stock, with detailed revenue and earnings estimates.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "The snippet discusses stock forecasts and analyst price target predictions for NVIDIA Corporation, focusing on revenue and earnings estimates."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "Get the latest NVIDIA Corp (NVDA) real-time quote, historical performance, charts, and other financial information to help you make more informed trading and investment decisions.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "OTHER",
+        "relevance": "HIGH",
+        "summary": "Provides financial information for NVIDIA Corporation (NVDA) to assist in trading and investing."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "23 hours ago \u00b7Nvidia is down 8.5% since the beginning of the year, and at $172.65 per share, it is trading 16.6% below its 52-week high of $207.04from October2025. Despite the year-to-date decline, investors who bought $1,000 worth of Nvidia\u2019s shares 5 years ago would now be looking at an investment worth $12,945.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "OTHER",
+        "relevance": "MEDIUM",
+        "summary": "The snippet provides a stock price update for Nvidia but does not focus on any specific event or change."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "Stockforecastsandanalystprice target predictions for NVIDIA Corporation (NVDA) stock, with detailed revenue andearningsestimates.",
+      "classification": {
+        "sentiment": "POSITIVE",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "Analyst price targets and detailed earnings estimates for NVIDIA Corporation are provided."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "The stock currently trades at a price-to-earnings(P/E) ratio of 46. At that valuation, Nvidia appears to be a good bet to outperform again in2026, especially following its recent pullback.",
+      "classification": {
+        "sentiment": "POSITIVE",
+        "category": "MACRO",
+        "relevance": "HIGH",
+        "summary": "Nvidia's stock is seen as a good investment for 2026 due to its P/E ratio and potential for outperformance after a recent decline."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "Nvidia reported better-than-expectedearningsand revenue for the fiscal fourth quarter. The stock was up slightly in late trading, extending its rally for the year. Revenue in the data center ...",
+      "classification": {
+        "sentiment": "POSITIVE",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "Nvidia reported better-than-expected earnings and revenue for the fiscal fourth quarter."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "Nvidia just released Q4 and FY2026results showing another blowout, beating guidance on nearly every metric.",
+      "classification": {
+        "sentiment": "POSITIVE",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "Nvidia's Q4 and FY2026 results show strong performance, beating guidance on multiple metrics."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "When is NVIDIA's nextearningsannouncement? View the latestNVDAearningsdate,analystsforecasts,earningshistory, and conference call transcripts.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "The snippet provides information on NVIDIA's upcoming earnings announcement date and related details."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "Political and regulatory changes have contributed to a turbulent time forenvironmentalandsocialgovernance(ESG) issues in 2025. On the one hand, a dramatic change in governmental stance in the ...",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "ESG",
+        "relevance": "LOW",
+        "summary": "Regulatory changes are creating uncertainty for ESG issues."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "ESGregulations are tightening in the UK and EU for2026. This article breaks down what's changing and how businesses should prepare.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "REGULATORY",
+        "relevance": "MEDIUM",
+        "summary": "The article discusses upcoming regulatory changes in the UK and EU for 2026 and provides guidance on preparation."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "In this article, we reflect on key trends inenvironmental,socialandgovernance(ESG) matters over the second half of 2025 and look ahead at what to watch in the first half of2026. We analyse the following material developments: Agreed amendments to the EU CSRD Omnibus package. Simplified European Sustainability Reporting Standards.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "ESG",
+        "relevance": "MEDIUM",
+        "summary": "The article discusses ESG trends and material developments such as amendments to the EU CSRD Omnibus package and simplified sustainability reporting standards."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "In our annual round-up of developments inESGfor UK clients, we highlight our predictions for the keyESGissues to watch in2026, as well as our reflections on the major themes that shaped theESGlandscape in 2025, including:Outlook for 2026Regulatory focus onESGmatters in 2026AI inESG:Technologytransforming howESGframeworks operateGovernance and supply chain ...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "ESG",
+        "relevance": "MEDIUM",
+        "summary": "The snippet discusses ESG issues and themes for the UK market, focusing on regulatory focus, AI, and governance."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "At the same time, rapid advances in industrialtechnology, AI and digitalgovernanceare creating new risks as well as opportunities. This blog explores seven keyESGtrends that we expect will shape the global regulatory, litigation and corporate strategy landscape in2026.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "ESG",
+        "relevance": "MEDIUM",
+        "summary": "The blog discusses seven key ESG trends expected to impact regulatory, litigation, and corporate strategies in 2026."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "TradingTechnologies(TT) announced a new phase in its leadership as Justin Llewellyn-Jones prepares to take over asCEO.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "MANAGEMENT",
+        "relevance": "LOW",
+        "summary": "TradingTechnologies appointed a new CEO."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "...Technology... FAFSA2026-27 ...2026All rights reserved.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "OTHER",
+        "relevance": "LOW",
+        "summary": "The snippet does not contain any relevant information about NVDA."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "In this article, you \u2019 ll get an insight into howtechnologyischangingthe waytraderstrade. ... howtechnologyischangingthe waytraders...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "PRODUCT",
+        "relevance": "LOW",
+        "summary": "The snippet discusses how technology is changing trading methods but does not specifically mention NVDA."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "In this article, we will take a detailed look at the LatestInsiderTradingActivity: 11 StocksExecutivesand Directors are Buying .",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "MANAGEMENT",
+        "relevance": "MEDIUM",
+        "summary": "The article focuses on insider buying activity for 11 stocks, including NVDA."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "... bring market intelligence, map future leadership needs, and identify theexecutivesbest suited to manage\u2014and accelerate\u2014tech-enabledchange...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "MANAGEMENT",
+        "relevance": "MEDIUM",
+        "summary": "The company is focusing on leadership development and identifying executives for tech-enabled change."
+      }
+    }
+  ],
+  "signal_summary": {
+    "total_signals": 20,
+    "sentiment_breakdown": {
+      "positive": 4,
+      "neutral": 13,
+      "negative": 3
+    },
+    "high_relevance_count": 7,
+    "category_breakdown": {
+      "MANAGEMENT": 3,
+      "OTHER": 5,
+      "ESG": 4,
+      "PRODUCT": 1,
+      "MACRO": 1,
+      "EARNINGS": 5,
+      "REGULATORY": 1
+    }
+  }
+}

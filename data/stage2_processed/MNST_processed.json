@@ -1,0 +1,232 @@
+{
+  "ticker": "MNST",
+  "company_name": "Consumer Defensive",
+  "stage1_claude_signals": {
+    "news_summary": "Monster Beverage (MNST) has shown strong performance with shares up approximately 63.6% over the past year, outperforming the broader market. The stock has been highlighted as a top consumer defensive pick for 2026, with analysts citing its defensive strength and resilient earnings amid rising recession fears. An AI-based forecast from WalletInvestor suggests a potential downside to ~$50, though this contrasts with broader analyst consensus.",
+    "sentiment": "POSITIVE",
+    "earnings_outlook": "Analysts expect MNST to report EPS of $1.99 for fiscal year ending December 2025, representing 22.8% growth from fiscal 2024, with further EPS growth of ~14% to $2.27 projected for fiscal 2026. Consensus leans toward a Buy rating, with analysts recommending accumulation on pullbacks.",
+    "esg_flags": "NONE",
+    "management_signals": "NONE",
+    "key_risks": "Rising recession fears in 2026 could pressure consumer discretionary spending on premium energy drinks. An AI-based technical forecast suggests potential downside price risk, and competitive pressures in the beverage sector remain a concern.",
+    "confidence": "MEDIUM"
+  },
+  "stage2_local_signals": [
+    {
+      "source_category": "recent_news",
+      "original_snippet": "2 days ago -Trailing total returns as of 3/30/2026, which may include dividends or other distributions.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "DIVIDENDS",
+        "relevance": "MEDIUM",
+        "summary": "The snippet provides trailing total returns information including possible dividends."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "2 weeks ago -Trailing total returns as of 2/26/2026, which may include dividends or other distributions.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "DIVIDENDS",
+        "relevance": "MEDIUM",
+        "summary": "The trailing total returns include dividends or other distributions as of 2/26/2026."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "November 17, 2025 -Consumer staples lag in 2025, butPEP, MNST, LW, UNFI and OLLI are five stocks that show improving growth drivers for 2026.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "PRODUCT",
+        "relevance": "MEDIUM",
+        "summary": "MNST is mentioned as one of the stocks showing improving growth drivers for 2026 in consumer staples."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "August 29, 2025 -Currently there seems to be a trend ... Our Ai stock analyst implies thatthere will be a negative trend in the future and the MNST shares are not a good investment for making money....",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "ESG",
+        "relevance": "HIGH",
+        "summary": "An AI stock analyst predicts a negative trend for MNST shares, suggesting they are not a good investment."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "February 2, 2026 -These 10 high-quality consumer defensive stocks cluster in sub-sectors like household products (PG, UL), beverages (KO, BUD, MNST, DEO, ABEV), and tobacco (PM, BTI, MO), providing sector allocation balance: ~30% household, 50% beverages, 20% tobacco. PG and KO anchor stability with mega-cap scale, while high-return names like MNST (63.6% 1Y) and BTI 52.9% add growth.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "PRODUCT",
+        "relevance": "MEDIUM",
+        "summary": "MNST is mentioned as one of the high-quality consumer defensive stocks in the beverage sub-sector, along with other companies like KO and PG."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "December 17, 2025 -Recession fears for 2026 are rising, andEL, MNST and TPB stand out as consumer-staple stocks offering defensive strength and resilient earnings.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "MACRO",
+        "relevance": "MEDIUM",
+        "summary": "The snippet discusses macroeconomic concerns and mentions MNST as a defensive stock in the consumer-staples sector."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "2 days ago -Consumer Defensive \u00b7 Beverages ... Calls Press Releases SEC Filings \u00b7 View More \u00b7Trailing total returns as of 3/30/2026, which may include dividends or other distributions....",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "MACRO",
+        "relevance": "MEDIUM",
+        "summary": "The snippet provides information on trailing total returns for MNST as of a specific date."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "February 21, 2026 -If you own a diversified portfolio of US equities, analysts are effectively signaling that MNST can continue to add incremental value over time\u2014but it is unlikely to double overnight without a fundamental regime change. ... If you are underweight consumer staples and want more defense without giving up growth, Monster\u2019s consensus Buy bias supports accumulating on pullbacks.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "PRODUCT",
+        "relevance": "HIGH",
+        "summary": "Analysts suggest Monster Beverage (MNST) can add value to a diversified US equity portfolio but is unlikely to see rapid growth."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "January 21, 2026 -For the current fiscal year, ending in December, analysts expect MNST to report a profit of $1.99 per share, up 22.8% from $1.62 per share in fiscal 2024. Its EPS is expected to further grow 14.1% year-over-year to$2.27 in fiscal 2026.",
+      "classification": {
+        "sentiment": "POSITIVE",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "Analysts expect MNST to report increasing earnings per share for the current fiscal year."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "October 23, 2025 -ItsEPS is expected to rise 12% year over year to $2.14 in fiscal 2026. ... MNST stock has outperformed the S&P 500 Index\u2019s ($SPX) 14.5% gains over the past 52 weeks, with shares up 30.1% during this period.",
+      "classification": {
+        "sentiment": "POSITIVE",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "MNST is expected to see earnings growth of 12% year-over-year and its stock has outperformed the S&P 500 over the past year."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "4 days ago -Industrial lobbying and the 2022 Russian invasion of Ukraine convinced the European Commission to not leave as unsustainable the rest of the activities of the defense industry. Corporate governance refers to the structures and processes that direct and control companies. Good governance is seen to ensure companies are more accountable, resilient and transparent to investors and gives them the tools to respond to stakeholder concerns. Corporate Governance in ESG includes issues from the Board of Director's view, Governance Lens watching over Corporate Behavior of the CEO, C-Suite, and employees at large includes measuring the Business ethics, anti-competitive practices, corruption, tax and providing accounting transparency for stakeholders.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "ESG",
+        "relevance": "LOW",
+        "summary": "The snippet discusses corporate governance and ESG factors in the context of the European Commission's stance on the defense industry."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "2 weeks ago -A Westminster Hall debate has been scheduled for 2:30pm on 28 Januaryon the impact of environmental, social and governance (ESG) requirements on the defence industry. The debate will be led by Jack Rankin MP.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "ESG",
+        "relevance": "LOW",
+        "summary": "A Westminster Hall debate on ESG requirements in the defence industry is scheduled to be led by Jack Rankin MP."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "February 26, 2026 -The officials argue that \u201cfiduciary duty calls for active oversight, responsible governance, and the full exercise of ownership rights\u201d, warning that the GOP\u2019s anti-ESG stance puts American retirement money at risk. Greenwashing litigation has also continued to expand in the U.S., especially consumer class actions challenging marketing and labeling.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "ESG",
+        "relevance": "MEDIUM",
+        "summary": "The snippet discusses ESG concerns and greenwashing litigation risks to American retirement funds, which is negative for MNST."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "January 14, 2026 -Regulatory and private enforcement remained intense across EU member states and is expected to accelerate in 2026as the Directive on Empowering Consumers for the Green Transition takes effect in September.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "REGULATORY",
+        "relevance": "MEDIUM",
+        "summary": "Regulatory pressure is expected to increase in the EU due to new directives."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "2 weeks ago -The report also includes model legislative drafting and while there is currently no indication that the UK Government will legislate in the near term, pressure from NGOs, some MPs and the wider community for reform is expected to continue to build in 2026. The Competition and Markets Authority has issued new guidance clarifying how consumer law applies to environmental claims across the supply chain.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "REGULATORY",
+        "relevance": "MEDIUM",
+        "summary": "The UK Government is not expected to legislate soon, but pressure for reform is increasing due to NGO and MP advocacy, alongside new guidance from the Competition and Markets Authority on consumer law and environmental claims."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "InsiderDealing Fines Highlight Importance of Robust Information Barriers and STOR Reporting On 10 February2026, the FCA announced that it had fined two individuals a combined \u00a3108,731 forinsiderdealing in shares of Bidstack Group Plc, a company that was admitted totradingon AIM at the time of the offences.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "REGULATORY",
+        "relevance": "LOW",
+        "summary": "The FCA fined two individuals for insider dealing in Bidstack Group Plc, highlighting the importance of robust information barriers."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "Thischangearrives alongside a broader SEC enforcement recalibration that will serve as a new examination baseline. In2026, the Commission is expected to focus its limited resources on traditional fraud,insidertrading, and market manipulation, while also stepping up scrutiny of foreign-based issuers and gatekeepers.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "REGULATORY",
+        "relevance": "MEDIUM",
+        "summary": "The SEC is recalibrating its enforcement efforts, focusing on traditional fraud, insider trading, and market manipulation, which may increase scrutiny for foreign-based issuers."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "The DMCCA is being implemented in phases throughout 2025 and2026. In April 2025, measures addressing unfairtradingpractices were introduced, and by Spring2026, the Act's new rules governing subscription contracts are expected to take effect.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "REGULATORY",
+        "relevance": "MEDIUM",
+        "summary": "The DMCCA regulations are being phased in, with new rules for subscription contracts set to take effect in Spring 2026."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "FCA fines ex-advertisingexecutiveand friend overinsidertradingCase is the fourth time in as many months that UK regulator has taken action overinsiderdealing February 42026",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "REGULATORY",
+        "relevance": "MEDIUM",
+        "summary": "UK regulator fines an ex-advertising executive and his friend for insider trading, marking the fourth case in four months."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "Both individuals' conduct breached Article 14 of the UK Market Abuse Regulation relating toinsiderdealing and unlawful disclosure of inside information. Bidstack Group Plc was an advertising technology company, admitted totradingon AIM until 23 April 2024. Tackling financial crime is a priority under the FCA's 5-year strategy.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "REGULATORY",
+        "relevance": "MEDIUM",
+        "summary": "Two individuals breached UK Market Abuse Regulation, involving insider dealing and unlawful disclosure of inside information."
+      }
+    }
+  ],
+  "signal_summary": {
+    "total_signals": 20,
+    "sentiment_breakdown": {
+      "positive": 2,
+      "neutral": 11,
+      "negative": 7
+    },
+    "high_relevance_count": 4,
+    "category_breakdown": {
+      "REGULATORY": 7,
+      "DIVIDENDS": 2,
+      "MACRO": 2,
+      "PRODUCT": 3,
+      "ESG": 4,
+      "EARNINGS": 2
+    }
+  }
+}
