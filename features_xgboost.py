@@ -44,7 +44,7 @@ from config import (
 def evaluate(y_true, y_pred, label=""):
     rmse = mean_squared_error(y_true, y_pred) ** 0.5
     mae  = mean_absolute_error(y_true, y_pred)
-    rho  = spearmanr(y_true, y_pred).statistic
+    rho  = spearmanr(y_true, y_pred).statistic # type: ignore
     if label:
         print(f"  [{label}]  RMSE={rmse:.4f}  MAE={mae:.4f}  Spearman={rho:.4f}")
     return rmse, mae, rho
@@ -146,7 +146,7 @@ def main():
         )
 
         preds = model.predict(X_val)
-        rho   = spearmanr(y_val.values, preds).statistic
+        rho   = spearmanr(y_val.values, preds).statistic # type: ignore
 
         # Store best_iteration alongside params for later retrieval
         trial.set_user_attr("best_n_estimators", model.best_iteration + 1)

@@ -19,7 +19,7 @@ __pycache__/
 *.pyc
 
 # --- Claude.md file
-CLAUDE.md
+.CLAUDE.md
 
 # --- Jupyter Notebooks ---
 .ipynb_checkpoints/

@@ -44,7 +44,7 @@ RF_OPTUNA_TRIALS = 50
 def evaluate(y_true, y_pred, label=""):
     rmse = mean_squared_error(y_true, y_pred) ** 0.5
     mae  = mean_absolute_error(y_true, y_pred)
-    rho  = spearmanr(y_true, y_pred).statistic
+    rho  = spearmanr(y_true, y_pred).statistic # type: ignore
     if label:
         print(f"  [{label}]  RMSE={rmse:.4f}  MAE={mae:.4f}  Spearman={rho:.4f}")
     return rmse, mae, rho
@@ -134,7 +134,7 @@ def main():
     print("=" * 60)
 
     lasso_cv = LassoCV(cv=5, random_state=RANDOM_SEED, max_iter=10_000, n_jobs=-1)
-    lasso_cv.fit(X_train_imp, y_train)
+    lasso_cv.fit(X_train_imp, y_train) # type: ignore
 
     print(f"  Selected alpha: {lasso_cv.alpha_:.6f}")
 
@@ -165,7 +165,7 @@ def main():
 
     # Retrain final Lasso on train + val combined
     lasso_final = LassoCV(cv=5, random_state=RANDOM_SEED, max_iter=10_000, n_jobs=-1)
-    lasso_final.fit(X_trainval_imp, y_trainval)
+    lasso_final.fit(X_trainval_imp, y_trainval) # type: ignore
 
     # Test set evaluation
     test_pred_lasso = lasso_final.predict(X_test_imp)
@@ -195,10 +195,10 @@ def main():
             random_state     = RANDOM_SEED,
             n_jobs           = -1,
         )
-        model = RandomForestRegressor(**params)
-        model.fit(X_train_imp, y_train)
+        model = RandomForestRegressor(**params) # type: ignore
+        model.fit(X_train_imp, y_train) # type: ignore
         preds = model.predict(X_val_imp)
-        return spearmanr(y_val, preds).statistic
+        return spearmanr(y_val, preds).statistic # type: ignore
 
 
     study_rf = optuna.create_study(
@@ -217,7 +217,7 @@ def main():
     rf_val_model = RandomForestRegressor(
         **best_rf_params, random_state=RANDOM_SEED, n_jobs=-1
     )
-    rf_val_model.fit(X_train_imp, y_train)
+    rf_val_model.fit(X_train_imp, y_train) # type: ignore
     val_pred_rf = rf_val_model.predict(X_val_imp)
     rf_val_rmse, rf_val_mae, rf_val_rho = evaluate(y_val, val_pred_rf, label="RF val")
     rf_val_hr = hit_rates_dict(y_val, val_pred_rf)
@@ -226,7 +226,7 @@ def main():
     rf_final = RandomForestRegressor(
         **best_rf_params, random_state=RANDOM_SEED, n_jobs=-1
     )
-    rf_final.fit(X_trainval_imp, y_trainval)
+    rf_final.fit(X_trainval_imp, y_trainval) # type: ignore
 
     # Test set evaluation
     test_pred_rf = rf_final.predict(X_test_imp)

@@ -152,7 +152,7 @@ def main():
 
     boruta_selector = BorutaPy(
         estimator=rf_estimator,
-        n_estimators="auto",
+        n_estimators="auto", # type: ignore
         random_state=RANDOM_SEED,
         verbose=1,
     )
