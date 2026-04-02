@@ -72,7 +72,7 @@ def main(csv_path=None, min_score=None, user_id=None, skip_stage2=False,
             print("No Stage 3 reports found. Run Stages 1-3 first.")
             return []
 
-        from stage_4_personal_advisor import run_final_advisory_batch
+        from engine.stage_4_personal_advisor import run_final_advisory_batch
         run_final_advisory_batch(user_id=_user_id)
         return []
 
@@ -97,7 +97,7 @@ def main(csv_path=None, min_score=None, user_id=None, skip_stage2=False,
         print(f"  Loaded {len(tickers)} tickers with Score >= {_min_score} from {csv_path}")
 
     # ── Stage 1 ────────────────────────────────────────────────────
-    from stage_1_gather import process_stock_stage_1, write_stage1_summary
+    from engine.stage_1_gather import process_stock_stage_1, write_stage1_summary
 
     if showcase:
         stage1_success = []
@@ -110,7 +110,7 @@ def main(csv_path=None, min_score=None, user_id=None, skip_stage2=False,
         suppress_output(write_stage1_summary)
     else:
         print_header("STAGE 1 — Web Research & Claude Extraction")
-        from stage_1_gather import run_batch as stage1_batch
+        from engine.stage_1_gather import run_batch as stage1_batch
         stage1_success = stage1_batch(csv_path, _min_score)
         write_stage1_summary()
 
@@ -120,7 +120,7 @@ def main(csv_path=None, min_score=None, user_id=None, skip_stage2=False,
             print_header("STAGE 2 — SKIPPED (--skip-stage2 flag set)")
         stage2_success = stage1_success
     else:
-        from stage_2_process import process_stock_stage_2, write_stage2_summary
+        from engine.stage_2_process import process_stock_stage_2, write_stage2_summary
 
         if showcase:
             stage2_success = []
@@ -133,12 +133,12 @@ def main(csv_path=None, min_score=None, user_id=None, skip_stage2=False,
             suppress_output(write_stage2_summary)
         else:
             print_header("STAGE 2 — Local LLM Snippet Classification")
-            from stage_2_process import run_batch as stage2_batch
+            from engine.stage_2_process import run_batch as stage2_batch
             stage2_success = stage2_batch(stage1_success)
             write_stage2_summary()
 
     # ── Stage 3 ────────────────────────────────────────────────────
-    from stage_3_synthesize import process_stock_stage_3, write_stage3_summary
+    from engine.stage_3_synthesize import process_stock_stage_3, write_stage3_summary
 
     if showcase:
         stage3_success = []
@@ -151,7 +151,7 @@ def main(csv_path=None, min_score=None, user_id=None, skip_stage2=False,
         suppress_output(write_stage3_summary)
     else:
         print_header("STAGE 3 — FAISS RAG Synthesis & Claude Report")
-        from stage_3_synthesize import run_batch as stage3_batch
+        from engine.stage_3_synthesize import run_batch as stage3_batch
         stage3_success = stage3_batch(stage2_success)
         write_stage3_summary()
 
@@ -170,7 +170,7 @@ def main(csv_path=None, min_score=None, user_id=None, skip_stage2=False,
             print()
         print_header("STAGE 4 — Personalized Advisory", showcase=False)
 
-        from stage_4_personal_advisor import run_final_advisory_batch
+        from engine.stage_4_personal_advisor import run_final_advisory_batch
         run_final_advisory_batch(user_id=_user_id)
 
     # ── Summary ────────────────────────────────────────────────────

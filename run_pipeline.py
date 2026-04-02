@@ -74,7 +74,7 @@ def main():
     print("  PHASE A — Live Data Extraction & Screening")
     print(f"{'='*70}")
 
-    from live_pipeline import main as run_phase_a
+    from engine.live_pipeline import main as run_phase_a
     run_phase_a(
         index=resolved_index,
         custom_csv=args.custom_tickers,

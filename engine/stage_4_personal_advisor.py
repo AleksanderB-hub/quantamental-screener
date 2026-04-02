@@ -4,6 +4,9 @@ from pathlib import Path
 from dotenv import load_dotenv
 from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import ChatPromptTemplate
+import sys
+if __name__ == "__main__":
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config as cfg
 
 # Building a template for the message since it will be reused over all comparisons

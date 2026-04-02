@@ -16,6 +16,9 @@ from dotenv import load_dotenv
 from langchain_community.tools import DuckDuckGoSearchResults
 from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
+import sys
+if __name__ == "__main__":
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config as cfg
 
 load_dotenv()

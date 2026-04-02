@@ -27,6 +27,9 @@ from sklearn.ensemble import RandomForestRegressor
 
 from xgboost import XGBRegressor
 
+import sys, os
+if __name__ == "__main__":
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import (
     TRAINING_REGRESSION_CSV, TESTING_REGRESSION_CSV,
     MODELS_DIR, REPORTS_DIR,

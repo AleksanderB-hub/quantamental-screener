@@ -10,6 +10,9 @@ import httpx
 from langchain_openai import ChatOpenAI
 from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import SystemMessage, HumanMessage
+import sys, os
+if __name__ == "__main__":
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config as cfg
 
 # Connect to local vLLM (same interface as OpenAI thanks to LangChain)

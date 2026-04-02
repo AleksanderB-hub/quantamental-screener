@@ -34,7 +34,7 @@ def run_live_screening(index, sample, custom_csv=None):
     print(f"Phase A — Live Screening ({index}, sample={sample or 'full'})")
     print(f"{'='*60}\n")
 
-    from live_pipeline import main as run_live
+    from engine.live_pipeline import main as run_live
     run_live(index=index, custom_csv=custom_csv, ticker_sample=sample or None)
     print(f"\nScreener scores saved to: {cfg.SCREENER_SCORES_CSV}")
 
@@ -63,7 +63,7 @@ def run_experiments(indices, sample, skip_extraction=False, test_only=False,
         print(f"Phase A — Extract Test Data Only ({', '.join(indices)})")
         print(f"{'='*60}\n")
 
-        from pipeline import get_tickers, run_backtest_pipeline, calculate_list_2_rules
+        from engine.pipeline import get_tickers, run_backtest_pipeline, calculate_list_2_rules
         import pandas as pd
         import random
 
@@ -94,7 +94,7 @@ def run_experiments(indices, sample, skip_extraction=False, test_only=False,
             print(f"Test data saved: {cfg.TESTING_REGRESSION_CSV}")
 
         print(f"\n[2/2] Evaluating existing models on new test data...")
-        from test_evaluation import main as run_test_eval
+        from engine.test_evaluation import main as run_test_eval
         run_test_eval()
 
         print(f"\nExperiments complete. Check reports/ for results.")
@@ -109,7 +109,7 @@ def run_experiments(indices, sample, skip_extraction=False, test_only=False,
         print(f"Phase A — Historical Data Extraction ({', '.join(indices)})")
         print(f"{'='*60}\n")
 
-        from pipeline import get_tickers, run_backtest_pipeline, calculate_list_2_rules
+        from engine.pipeline import get_tickers, run_backtest_pipeline, calculate_list_2_rules
         import pandas as pd
         import random
 
@@ -168,21 +168,21 @@ def run_experiments(indices, sample, skip_extraction=False, test_only=False,
     # ── Step 3-5: Model training + feature selection (unless test-only) ──
     if not test_only:
         print(f"\n[3/5] Training XGBoost + SHAP analysis...")
-        from features_xgboost import main as run_xgboost
+        from engine.features_xgboost import main as run_xgboost
         run_xgboost()
 
         print(f"\n[4/5] Running model comparison (Lasso + RF)...")
-        from model_comparison import main as run_models
+        from engine.model_comparison import main as run_models
         run_models()
 
         print(f"\n[5/5] Running feature selection...")
-        from feature_selection import main as run_features
+        from engine.feature_selection import main as run_features
         run_features()
     else:
         print(f"\n{'='*60}")
         print(f"Phase A — Test-only mode: evaluating existing models on test data")
         print(f"{'='*60}")
-        from test_evaluation import main as run_test_eval
+        from engine.test_evaluation import main as run_test_eval
         run_test_eval()
 
     print(f"\nExperiments complete. Check reports/ for results.")

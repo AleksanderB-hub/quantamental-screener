@@ -6,6 +6,9 @@ import random
 import time
 from datetime import timedelta
 from tqdm import tqdm
+import sys, os
+if __name__ == "__main__":
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config as cfg
 
 #set the seed for reproducibility

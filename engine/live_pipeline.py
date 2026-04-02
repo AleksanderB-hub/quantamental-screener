@@ -5,11 +5,14 @@ The Production Inference Script.
 Fetches fundamental data for TODAY, cleans it, and prepares it for the screener.
 """
 
+import sys, os
+if __name__ == "__main__":
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import pandas as pd
 import config as cfg
 # Import your core extraction functions from your original pipeline
-from pipeline import get_tickers, run_backtest_pipeline, calculate_list_2_rules
-from screener import run_screener
+from .pipeline import get_tickers, run_backtest_pipeline, calculate_list_2_rules
+from .screener import run_screener
 
 def main(index=None, custom_csv=None, ticker_sample=None):
     idx = index or cfg.LIVE_INDEX
