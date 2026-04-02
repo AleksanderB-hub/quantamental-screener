@@ -1,0 +1,13 @@
+{
+  "user_id": "Romek",
+  "profile_label": "Aggressive",
+  "agent_parameters": {
+    "time_horizon_years": 2,
+    "primary_objective": "CAPITAL_APPRECIATION",
+    "esg_preference": "STRICT",
+    "liquidity_needs": "VERY_LOW",
+    "max_drawdown_capacity_pct": 40,
+    "capacity_score": 15,
+    "tolerance_score": 12
+  }
+}

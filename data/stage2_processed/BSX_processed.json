@@ -1,0 +1,232 @@
+{
+  "ticker": "BSX",
+  "company_name": "Boston Scientific Corporation",
+  "stage1_claude_signals": {
+    "news_summary": "Boston Scientific reported strong Q4 2025 results with net sales of $5.286 billion, representing 15.9% reported growth and 12.7% organic growth year-over-year. The company continues to demonstrate robust revenue momentum across its medical device portfolio. Full year 2025 results were also announced alongside the quarterly figures in February 2026.",
+    "sentiment": "POSITIVE",
+    "earnings_outlook": "Analysts had forecast Q4 2025 earnings of approximately $0.78 per share, and the company's strong double-digit revenue growth suggests solid execution against expectations. Wall Street analysts and investors have been closely monitoring BSX's performance given its consistent growth trajectory in the medical device sector.",
+    "esg_flags": "NONE",
+    "management_signals": "Over the last 12 months, insiders at Boston Scientific have sold approximately $129.6 million worth of BSX stock with no insider purchases recorded, which may warrant monitoring. Unusually large options trading activity was also noted recently, though no specific leadership changes were identified in the available data.",
+    "key_risks": "Significant insider selling of $129.6 million with zero insider purchases over the past 12 months could signal reduced insider confidence. Additionally, the company faces typical medical device sector risks including regulatory scrutiny, competitive pressures, and potential reimbursement changes that could impact revenue growth sustainability.",
+    "confidence": "MEDIUM"
+  },
+  "stage2_local_signals": [
+    {
+      "source_category": "recent_news",
+      "original_snippet": "MARLBOROUGH, Mass., Feb. 4,2026/ PRNewswire / --BostonScientificCorporation(NYSE:BSX) generated net sales of $5.286 billion during the fourth quarter of2025, growing 15.9 percent on a reported basis, 14.3 percent on an operational 1 basis and 12.7 percent on an organic 2 basis, all compared to the prior year period. The company reported GAAP net income attributable toBostonScientific...",
+      "classification": {
+        "sentiment": "POSITIVE",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "Boston Scientific reported strong revenue growth in the fourth quarter of 2025, with net sales increasing by 15.9 percent on a reported basis."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "Should You Buy or SellBostonScientificStock? Get The LatestBSXStockAnalysis, Price Target, Earnings Estimates, Headlines, and Short Interest at MarketBeat.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "OTHER",
+        "relevance": "MEDIUM",
+        "summary": "The snippet provides a general overview of where to find analysis and information about Boston Scientific stock."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "A detailed overview ofBostonScientificCorporation(BSX)stock, including real-time price, chart, key statistics,news, and more.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "OTHER",
+        "relevance": "LOW",
+        "summary": "The snippet provides an overview of Boston Scientific Corporation's stock without focusing on specific events."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "Get the latestnewsand real-time alerts fromBostonScientificCorporation(BSX)stockat Seeking Alpha.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "OTHER",
+        "relevance": "LOW",
+        "summary": "The snippet does not provide any specific news about BSX."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "Stockanalysis forBostonScientificCorp (BSX:New York) includingstockprice,stockchart, companynews, key statistics, fundamentals and company profile.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "OTHER",
+        "relevance": "MEDIUM",
+        "summary": "The snippet provides a stock analysis for Boston Scientific Corp (BSX) including stock price, chart, news, and fundamentals."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "BostonScientific's Q4 2025earningsis estimated for Wednesday, February 4,2026, based on past reporting schedules, with a conference call ...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "BostonScientific's Q4 2025 earnings are estimated for February 4, 2026."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "Wall StreetanalystsforecastthatBostonScientific(BSXQuick QuoteBSX- Free Report ) will report quarterlyearningsof $0.78 per share in its ...",
+      "classification": {
+        "sentiment": "POSITIVE",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "Wall Street analysts forecast Boston Scientific (BSX) to report earnings of $0.78 per share."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "Analystsand investors alike will be keeping a close eye on the performance ofBostonScientificin its upcomingearningsdisclosure.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "Analysts and investors will focus on Boston Scientific's upcoming earnings disclosure."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "BostonScientificCorp ( NYSE:BSX) Q4 2021earningscall dated Feb. ... morning, and welcome to theBostonScientificFourth Quarter 2021Earnings...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "This snippet is about Boston Scientific Corp's (BSX) Q4 2021 earnings call."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "BostonScientificCorp. ( NYSE:BSX) Q1 2022earningscall dated Apr. ... and welcome to theBostonScientificFirst Quarter 2022EarningsCall.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "This snippet is about the Q1 2022 earnings call for Boston Scientific Corporation."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "A nearly perfect storm of geopolitical,social, and economic forces is putting theenvironmental,social, andgovernance(ESG) objectives of ...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "ESG",
+        "relevance": "MEDIUM",
+        "summary": "The snippet discusses how geopolitical, social, and economic factors are impacting ESG objectives."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "Environmental,socialandgovernance(ESG) investing continues to grow as evidenced by record investments in 2021(5).",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "ESG",
+        "relevance": "MEDIUM",
+        "summary": "Record investments in ESG continue to grow in 2021."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "... than your voice in government. ... Strategies helps businesses and individuals solve the complexities of dealing with the government at every level.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "PRODUCT",
+        "relevance": "LOW",
+        "summary": "The snippet does not discuss BSX and focuses on a company's services for solving government-related complexities."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "... unique program provides innovative and affordable opportunities to startups and early-stage emerging companies with a solid technology orscientific...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "PRODUCT",
+        "relevance": "MEDIUM",
+        "summary": "BSX introduces a unique program for startups and early-stage companies."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "Governmental Audits, Benefit Claims + ERISA Litigation ...Environmental,Social+Governance(ESG) ... More than your voice in government.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "REGULATORY",
+        "relevance": "MEDIUM",
+        "summary": "The snippet mentions ERISA litigation, which is negative for BSX."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "BostonScientificCorporation( NYSE:BSX \u2013 Get Free Report ) was the recipient of unusually large optionstradingactivity on Monday.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "OTHER",
+        "relevance": "LOW",
+        "summary": "Boston Scientific Corporation experienced unusually large option trading activity on Monday."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "About InsiderTrades.com | Contact \u00a9 MarketBeat Media, LLC dba InsiderTrades.com \u2122 2019-2026. ... InsiderTrades.com provides comprehensive ...",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "MANAGEMENT",
+        "relevance": "LOW",
+        "summary": "The snippet is about a website and does not provide any information about BSX."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "...executivecommittee member for MassMEDIC inBoston, MA, a public-private partnership that coordinates the resources used in managing medical devices ...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "MANAGEMENT",
+        "relevance": "HIGH",
+        "summary": "BSX executive is involved in MassMEDIC, a public-private partnership in Boston focused on medical devices."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "Over the last 12 months,insidersatBostonScientificCorporationhave bought $0 and sold $129.6M worth ofBostonScientificCorporationstock.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "MANAGEMENT",
+        "relevance": "HIGH",
+        "summary": "Insiders at Boston Scientific have been selling significant amounts of company stock over the past year."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "ForCEOsand seniorexecutives, these incidents raise serious questions aboutcorporateliability, riskmanagement, and leadership accountability.",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "MANAGEMENT",
+        "relevance": "HIGH",
+        "summary": "Incidents involving CEOs and senior executives raise concerns about corporate liability, risk management, and leadership accountability."
+      }
+    }
+  ],
+  "signal_summary": {
+    "total_signals": 20,
+    "sentiment_breakdown": {
+      "positive": 2,
+      "neutral": 13,
+      "negative": 5
+    },
+    "high_relevance_count": 9,
+    "category_breakdown": {
+      "ESG": 2,
+      "PRODUCT": 2,
+      "OTHER": 5,
+      "MANAGEMENT": 4,
+      "EARNINGS": 6,
+      "REGULATORY": 1
+    }
+  }
+}

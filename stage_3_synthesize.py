@@ -3,6 +3,7 @@ Stage 3: Synthesis & Final Report (Claude API + RAG)
 Embeds Stage 2 signals into a vector store, retrieves the most
 relevant evidence, and produces a final investment thesis per stock.
 """
+import csv
 import json
 import os
 from pathlib import Path
@@ -97,7 +98,7 @@ def synthesise_report(ticker: str, vector_store: FAISS) -> dict:
     - Stage 1 Claude summary
     - Stage 2 signals retrieved via RAG
     """
-    llm = ChatAnthropic(model="claude-sonnet-4-6", max_tokens=3000, temperature=0)
+    llm = ChatAnthropic(model="claude-sonnet-4-6", max_tokens=3000, temperature=0) # type: ignore
     
     # Load Stage 2 data for the Claude summary and signal counts
     stage2_path = cfg.STAGE2_DIR / f"{ticker}_processed.json"
@@ -204,7 +205,7 @@ def synthesise_report(ticker: str, vector_store: FAISS) -> dict:
     response = llm.invoke(messages)
     
     # Parse response
-    raw = response.content.strip()
+    raw = str(response.content).strip()
     if raw.startswith("```"):
         raw = raw.split("\n", 1)[1] if "\n" in raw else raw[3:]
     if raw.endswith("```"):
@@ -219,13 +220,20 @@ def synthesise_report(ticker: str, vector_store: FAISS) -> dict:
     return report
 
 
-def process_stock_stage3(ticker: str) -> dict:
+def process_stock_stage_3(ticker: str) -> dict:
     """
     Full Stage 3 pipeline for one stock.
     """
     print(f"\n{'='*60}")
     print(f"Stage 3 Synthesis: {ticker}")
     print(f"{'='*60}")
+    
+    # If you have the final reports ready
+    output_path = cfg.STAGE3_DIR / f"{ticker}_report.json"
+    if output_path.exists() and not cfg.FORCE_REFRESH:
+        print(f"  Skipping {ticker} — Stage 3 output already exists")
+        with open(output_path) as f:
+            return json.load(f)
     
     # Step 1: Build vector store from Stage 2 signals
     vector_store = build_vector_store(ticker)
@@ -245,10 +253,93 @@ def process_stock_stage3(ticker: str) -> dict:
     return report
 
 
-if __name__ == "__main__":
-    report = process_stock_stage3("EQT")
-    
+def run_batch(tickers: list) -> list:
+    """
+    Runs process_stock_stage_3() for each ticker in the list.
+    Skips tickers whose Stage 3 report JSON already exists.
+    Returns list of successfully processed + already-existing tickers.
+    """
     print(f"\n{'='*60}")
-    print("FINAL INVESTMENT REPORT:")
+    print(f"STAGE 3 BATCH — {len(tickers)} tickers")
     print(f"{'='*60}")
-    print(json.dumps(report, indent=2))
+
+    successful = []
+    for ticker in tickers:
+        output_path = cfg.STAGE3_DIR / f"{ticker}_report.json"
+        if output_path.exists():
+            print(f"  [SKIP] {ticker} — already processed")
+            successful.append(ticker)
+            continue
+
+        print(f"  [RUN ] {ticker}")
+        try:
+            process_stock_stage_3(ticker)
+            successful.append(ticker)
+        except FileNotFoundError as e:
+            print(f"  [ERROR] {ticker} — missing upstream data: {e}")
+        except Exception as e:
+            print(f"  [ERROR] {ticker} — {e}")
+
+    return successful
+
+
+def write_stage3_summary():
+    """
+    Reads all per-stock Stage 3 report JSON files and writes a summary CSV.
+    Columns: Ticker, Overall_Assessment, Confidence, Thesis, Key_Risk
+    """
+    rows = []
+    for path in sorted(cfg.STAGE3_DIR.glob("*_report.json")):
+        with open(path) as f:
+            report = json.load(f)
+
+        # First sentence of investment_thesis
+        thesis_full = report.get("investment_thesis", "")
+        thesis_line = thesis_full.replace("\n", " ").split(". ")[0].strip()
+        if thesis_line and not thesis_line.endswith("."):
+            thesis_line += "."
+
+        # First item / first sentence of bear_case
+        bear = report.get("bear_case", "")
+        if isinstance(bear, list):
+            key_risk = str(bear[0]).strip() if bear else ""
+        else:
+            key_risk = str(bear).replace("\n", " ").split(". ")[0].strip()
+
+        rows.append({
+            "Ticker": report.get("ticker", path.stem.replace("_report", "")),
+            "Overall_Assessment": report.get("overall_assessment", ""),
+            "Confidence": report.get("confidence", ""),
+            "Thesis": thesis_line,
+            "Key_Risk": key_risk,
+        })
+
+    with open(cfg.STAGE3_SUMMARY_CSV, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=[
+            "Ticker", "Overall_Assessment", "Confidence", "Thesis", "Key_Risk",
+        ])
+        writer.writeheader()
+        writer.writerows(rows)
+
+    print(f"\nStage 3 summary written to: {cfg.STAGE3_SUMMARY_CSV} ({len(rows)} stocks)")
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Stage 3: Synthesis")
+    parser.add_argument("--tickers", nargs="+", default=None,
+                        help="Space-separated list of tickers for batch mode")
+    args = parser.parse_args()
+
+    if args.tickers:
+        run_batch(args.tickers)
+        write_stage3_summary()
+    else:
+        # Legacy single-stock mode
+        report = process_stock_stage_3("EQT")
+        print(f"\n{'='*60}")
+        print("FINAL INVESTMENT REPORT:")
+        print(f"{'='*60}")
+        print(json.dumps(report, indent=2))
+        write_stage3_summary()

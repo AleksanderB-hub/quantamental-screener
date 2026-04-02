@@ -133,7 +133,7 @@ def load_or_create_profile(user_id="default_user"):
     return user_profile
 
 def generate_personalized_advice(objective_report: dict, user_profile: dict) -> str:
-    llm = ChatAnthropic(model="claude-haiku-4-5-20251001", temperature=0.1, max_tokens=500)
+    llm = ChatAnthropic(model="claude-haiku-4-5-20251001", temperature=0.1, max_tokens=500) # type: ignore
     params = user_profile.get("agent_parameters", {})
     
     # this is equal to
@@ -155,7 +155,7 @@ def generate_personalized_advice(objective_report: dict, user_profile: dict) -> 
         "esg": objective_report.get("esg_assessment"),
     })
     
-    return response.content
+    return str(response.content).strip()
 
 def run_final_advisory_batch(user_id="default_user"):
     user_profile = load_or_create_profile(user_id)
@@ -182,10 +182,19 @@ def run_final_advisory_batch(user_id="default_user"):
             print(f"  WARNING: Failed for {ticker}: {e}")
             advice = "Unable to generate advice — API error."
         
+        advice_upper = advice.upper()
+        if "BUY" in advice_upper and "AVOID" not in advice_upper:
+            recommendation = "BUY"
+        elif "AVOID" in advice_upper:
+            recommendation = "AVOID"
+        else:
+            recommendation = "HOLD"
+
         all_advice.append({
             "ticker": ticker,
             "stage3_assessment": objective_report.get("overall_assessment"),
             "personalized_advice": advice,
+            "recommendation": recommendation,
         })
         
         print(f"--- {ticker} ---")
@@ -211,21 +220,12 @@ def run_final_advisory_batch(user_id="default_user"):
     print(f"{'-'*33}")
     
     for rec in all_advice:
-        # Extract BUY/HOLD/AVOID from the advice text
-        advice_text = rec["personalized_advice"].upper()
-        if "BUY" in advice_text and "AVOID" not in advice_text:
-            personal_rec = "BUY"
-        elif "AVOID" in advice_text:
-            personal_rec = "AVOID"
-        else:
-            personal_rec = "HOLD"
-        
-        print(f"{rec['ticker']:<8} {rec['stage3_assessment']:<10} {personal_rec:<15}")
+        print(f"{rec['ticker']:<8} {rec['stage3_assessment']:<10} {rec['recommendation']:<15}")
     
     # Count summary
-    buy_count = sum(1 for r in all_advice if "BUY" in r["personalized_advice"].upper() and "AVOID" not in r["personalized_advice"].upper())
-    avoid_count = sum(1 for r in all_advice if "AVOID" in r["personalized_advice"].upper())
-    hold_count = len(all_advice) - buy_count - avoid_count
+    buy_count = sum(1 for r in all_advice if r["recommendation"] == "BUY")
+    avoid_count = sum(1 for r in all_advice if r["recommendation"] == "AVOID")
+    hold_count = sum(1 for r in all_advice if r["recommendation"] == "HOLD")
     
     print(f"\n{'─'*33}")
     print(f"BUY: {buy_count}  |  HOLD: {hold_count}  |  AVOID: {avoid_count}")

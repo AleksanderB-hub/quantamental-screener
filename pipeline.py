@@ -5,24 +5,128 @@ import sqlite3
 import random
 import time
 from datetime import timedelta
+from tqdm import tqdm
 import config as cfg
 
 #set the seed for reproducibility
 random.seed(42)
 
-def get_sp500_tickers():
-    """Scrapes current S&P 500 tickers from Wikipedia."""
-    url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
-    
-    # Disguise the request as a standard web browser to bypass the 403 Forbidden error
+def _find_ticker_column(df, candidates):
+    """Return the first candidate column name present in df, or None."""
+    for col in candidates:
+        if col in df.columns:
+            return col
+    return None
+
+def get_tickers_single(index_name: str = "sp500", custom_csv: str = None) -> list: # type: ignore
+    """
+    Returns ticker list based on index name.
+    Supported: sp500, nasdaq100, ftse100, dax40, custom
+
+    Custom reads a CSV with a 'Ticker' or 'Symbol' column.
+    """
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
-    
-    tables = pd.read_html(url, storage_options=headers)
-    df = tables[0]
-    
-    # Replace dots with dashes for yfinance (e.g., BRK.B -> BRK-B)
-    tickers = df['Symbol'].str.replace('.', '-', regex=False).tolist()
+    TICKER_COLS = ['Ticker', 'Symbol', 'Ticker symbol', 'EPIC', 'Code']
+
+    index_name = index_name.lower()
+
+    if index_name == "custom":
+        if not custom_csv:
+            raise ValueError("custom_csv path required when index_name='custom'")
+        df = pd.read_csv(custom_csv)
+        col = _find_ticker_column(df, TICKER_COLS)
+        if col is None:
+            raise ValueError(
+                f"Custom CSV has no recognized ticker column. "
+                f"Expected one of: {TICKER_COLS}. Found: {list(df.columns)}"
+            )
+        return df[col].dropna().str.replace('.', '-', regex=False).tolist()
+
+    index_configs = {
+        "sp500": {
+            "url": "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies",
+            "table_idx": 0,
+            "suffix": "",
+        },
+        "nasdaq100": {
+            "url": "https://en.wikipedia.org/wiki/Nasdaq-100",
+            "table_idx": None,  # auto-detect
+            "suffix": "",
+        },
+        "ftse100": {
+            "url": "https://en.wikipedia.org/wiki/FTSE_100_Index",
+            "table_idx": None,  # auto-detect
+            "suffix": ".L",
+        },
+        "dax40": {
+            "url": "https://en.wikipedia.org/wiki/DAX",
+            "table_idx": None,  # auto-detect
+            "suffix": ".DE",
+        },
+    }
+
+    if index_name not in index_configs:
+        raise ValueError(
+            f"Unknown index '{index_name}'. "
+            f"Supported: {list(index_configs.keys()) + ['custom']}"
+        )
+
+    idx_cfg = index_configs[index_name]
+    tables = pd.read_html(idx_cfg["url"], storage_options=headers)
+
+    # Locate the right table
+    if idx_cfg["table_idx"] is not None:
+        df = tables[idx_cfg["table_idx"]]
+        col = _find_ticker_column(df, TICKER_COLS)
+    else:
+        df, col = None, None
+        for table in tables:
+            c = _find_ticker_column(table, TICKER_COLS)
+            if c is not None:
+                df, col = table, c
+                break
+
+    if df is None or col is None:
+        raise RuntimeError(
+            f"Could not find a ticker column in any table on the {index_name} Wikipedia page. "
+            f"Looked for: {TICKER_COLS}"
+        )
+
+    # Replace internal dots with dashes (e.g. BRK.B -> BRK-B), then append exchange suffix
+    raw = df[col].dropna().str.strip()
+    suffix = idx_cfg["suffix"]
+    if suffix:
+        # Only add suffix to tickers that don't already have it
+        tickers = [
+            t.replace('.', '-') + suffix if not t.endswith(suffix) else t
+            for t in raw
+        ]
+    else:
+        tickers = raw.str.replace('.', '-', regex=False).tolist()
+
     return tickers
+
+def get_tickers(index_name, custom_csv=None):
+    """
+    Returns ticker list. Accepts a single index string or a list of indices.
+    Deduplicates across indices.
+    """
+    if isinstance(index_name, list):
+        all_tickers = []
+        for idx in index_name:
+            print(f"  Fetching {idx} tickers...")
+            all_tickers.extend(get_tickers_single(idx, custom_csv)) # type: ignore
+        # Deduplicate while preserving order
+        seen = set()
+        unique = [t for t in all_tickers if not (t in seen or seen.add(t))]
+        print(f"  Combined universe: {len(unique)} unique tickers from {len(index_name)} indices")
+        return unique
+    else:
+        return get_tickers_single(index_name, custom_csv) # type: ignore
+
+def get_sp500_tickers():
+    """Backward-compatible wrapper — returns S&P 500 tickers via get_tickers()."""
+    return get_tickers("sp500")
 
 def calculate_rsi(series, period=14):
     '''Calculate RSI using Wilder's smoothing method.'''
@@ -225,7 +329,7 @@ def get_robust_financials(ticker_symbol, hist, fin, bs, cash, info, screening_da
         # 2. Apply logic checking for BOTH missing data and negative equity
         if pd.isna(roe_curr):
             features['ROE_Gt_15_Sustained'] = np.nan
-        elif equity_curr <= 0:
+        elif pd.notna(equity_curr) and float(equity_curr) <= 0:
             features['ROE_Gt_15_Sustained'] = 0 # Fails standard ROE test if current equity is negative
         else:
             if pd.notna(roe_prev_2): # 3 years of data exist
@@ -362,86 +466,96 @@ def calculate_list_2_rules(df):
     """Calculates Industry Relative and Percentile Rules (with strict NaN propagation)"""
     print("--- Calculating List 2 (Industry/Universe) Rules ---")
 
+    multi_index = 'Index_Source' in df.columns
+
+    # Percentile ranking group key: per-index when multi-index, otherwise date-only
+    if multi_index:
+        pct_group = ['Index_Source', 'Screening_Date']
+    else:
+        pct_group = ['Screening_Date']
+
+    # Industry-relative group key: always global across all indices
+    industry_group = ['Screening_Date', 'Sector']
+
     # --- 1. Percentile Rankings (Universe Wide) grouped by screening date ---
-    df['Market_Cap_Percentile'] = df.groupby('Screening_Date')['Market_Cap_Raw'].rank(pct=True)
+    df['Market_Cap_Percentile'] = df.groupby(pct_group)['Market_Cap_Raw'].rank(pct=True)
     df['Market_Cap_Top_30_Pct'] = np.where(df['Market_Cap_Raw'].isna(), np.nan, (df['Market_Cap_Percentile'] >= 0.70).astype(float))
     df['Market_Cap_Top_25_Pct'] = np.where(df['Market_Cap_Raw'].isna(), np.nan, (df['Market_Cap_Percentile'] >= 0.75).astype(float))
 
-    
-    df['PE_Percentile'] = df.groupby('Screening_Date')['PE_Raw'].rank(pct=True)
+    df['PE_Percentile'] = df.groupby(pct_group)['PE_Raw'].rank(pct=True)
     df['PE_Bottom_40_Pct'] = np.where(df['PE_Raw'].isna(), np.nan, (df['PE_Percentile'] <= 0.40).astype(float))
     df['PE_Bottom_20_Pct'] = np.where(df['PE_Raw'].isna(), np.nan, (df['PE_Percentile'] <= 0.20).astype(float))
-    
-    df['Free_Cash_Flow_Percentile'] = df.groupby('Screening_Date')['Free_Cash_Flow_Raw'].rank(pct=True)
+
+    df['Free_Cash_Flow_Percentile'] = df.groupby(pct_group)['Free_Cash_Flow_Raw'].rank(pct=True)
     df['FCF_Top_30_Pct'] = np.where(df['Free_Cash_Flow_Raw'].isna(), np.nan, (df['Free_Cash_Flow_Percentile'] >= 0.70).astype(float))
 
     # --- 2. Industry Relative Rules (Sector Specific) ---
     if 'Sector' in df.columns and 'Screening_Date' in df.columns:
         # PE < Industry Median
-        df['Sector_Median_PE'] = df.groupby(['Screening_Date', 'Sector'])['PE_Raw'].transform('median')
+        df['Sector_Median_PE'] = df.groupby(industry_group)['PE_Raw'].transform('median')
         df['PE_Below_Industry'] = np.where(df['PE_Raw'].isna() | df['Sector_Median_PE'].isna(), np.nan, (df['PE_Raw'] < df['Sector_Median_PE']).astype(float))
-        
+
         # PB < Industry Median
-        df['Sector_Median_PB'] = df.groupby(['Screening_Date', 'Sector'])['PB_Raw'].transform('median')
+        df['Sector_Median_PB'] = df.groupby(industry_group)['PB_Raw'].transform('median')
         df['PB_Below_Industry'] = np.where(df['Sector_Median_PB'].isna(), np.nan, np.where(df['PB_Raw'].isna(), 0.0, (df['PB_Raw'] < df['Sector_Median_PB']).astype(float)))
-        
+
         # Dividend Yield > Industry Median
-        df['Sector_Median_Div_Yield'] = df.groupby(['Screening_Date', 'Sector'])['Div_Yield_Raw'].transform('median')
+        df['Sector_Median_Div_Yield'] = df.groupby(industry_group)['Div_Yield_Raw'].transform('median')
         df['Div_Yield_Above_Industry'] = np.where(df['Div_Yield_Raw'].isna() | df['Sector_Median_Div_Yield'].isna(), np.nan, (df['Div_Yield_Raw'] > df['Sector_Median_Div_Yield']).astype(float))
-        
+
         # Margin > Industry Median
-        df['Sector_Median_Margin'] = df.groupby(['Screening_Date', 'Sector'])['Net_Profit_Margin_Raw'].transform('median')
+        df['Sector_Median_Margin'] = df.groupby(industry_group)['Net_Profit_Margin_Raw'].transform('median')
         df['Margin_Above_Industry'] = np.where(df['Net_Profit_Margin_Raw'].isna() | df['Sector_Median_Margin'].isna(), np.nan, (df['Net_Profit_Margin_Raw'] > df['Sector_Median_Margin']).astype(float))
-        
-        # Gross Margin > Industry Median 
-        df['Sector_Median_Gross_Margin'] = df.groupby(['Screening_Date', 'Sector'])['Gross_Profit_Margin_Raw'].transform('median')
+
+        # Gross Margin > Industry Median
+        df['Sector_Median_Gross_Margin'] = df.groupby(industry_group)['Gross_Profit_Margin_Raw'].transform('median')
         df['Gross_Margin_Above_Industry'] = np.where(df['Gross_Profit_Margin_Raw'].isna() | df['Sector_Median_Gross_Margin'].isna(), np.nan, (df['Gross_Profit_Margin_Raw'] > df['Sector_Median_Gross_Margin']).astype(float))
-        
+
         # Operating Margin > Industry Median
-        df['Sector_Median_Operating_Margin'] = df.groupby(['Screening_Date', 'Sector'])['Operating_Margin_Raw'].transform('median')
+        df['Sector_Median_Operating_Margin'] = df.groupby(industry_group)['Operating_Margin_Raw'].transform('median')
         df['Operating_Margin_Above_Industry'] = np.where(df['Operating_Margin_Raw'].isna() | df['Sector_Median_Operating_Margin'].isna(), np.nan, (df['Operating_Margin_Raw'] > df['Sector_Median_Operating_Margin']).astype(float))
-        
+
         # ROE > Industry Average
-        df['Sector_Median_ROE'] = df.groupby(['Screening_Date', 'Sector'])['ROE_Raw'].transform('median')
+        df['Sector_Median_ROE'] = df.groupby(industry_group)['ROE_Raw'].transform('median')
         df['ROE_Above_Industry'] = np.where(df['Sector_Median_ROE'].isna(), np.nan, np.where(df['ROE_Raw'].isna(), 0.0, (df['ROE_Raw'] > df['Sector_Median_ROE']).astype(float)))
-        
+
         # Ratio of T Liabilities to T Assets < Industry
-        df['Sector_Median_Debt_To_Assets_Ratio'] = df.groupby(['Screening_Date', 'Sector'])['Debt_To_Assets_Ratio_Raw'].transform('median')
+        df['Sector_Median_Debt_To_Assets_Ratio'] = df.groupby(industry_group)['Debt_To_Assets_Ratio_Raw'].transform('median')
         df['Debt_To_Assets_Ratio_Below_Industry'] = np.where(df['Debt_To_Assets_Ratio_Raw'].isna() | df['Sector_Median_Debt_To_Assets_Ratio'].isna(), np.nan, (df['Debt_To_Assets_Ratio_Raw'] < df['Sector_Median_Debt_To_Assets_Ratio']).astype(float))
-        
+
         # Ratio of Long Term Debt to Equity < Industry
-        df['Sector_Median_Long_Term_Debt_To_Equity'] = df.groupby(['Screening_Date', 'Sector'])['Long_Term_Debt_To_Equity_Raw'].transform('median')
+        df['Sector_Median_Long_Term_Debt_To_Equity'] = df.groupby(industry_group)['Long_Term_Debt_To_Equity_Raw'].transform('median')
         df['Long_Term_Debt_To_Equity_Ratio_Below_Industry'] = np.where(df['Long_Term_Debt_To_Equity_Raw'].isna() | df['Sector_Median_Long_Term_Debt_To_Equity'].isna(), np.nan, (df['Long_Term_Debt_To_Equity_Raw'] < df['Sector_Median_Long_Term_Debt_To_Equity']).astype(float))
-        
+
         # Ratio of T Assets to T Liabilities > Industry
-        df['Sector_Median_Assets_To_Liability'] = df.groupby(['Screening_Date', 'Sector'])['Assets_To_Liability_Ratio_Raw'].transform('median')
+        df['Sector_Median_Assets_To_Liability'] = df.groupby(industry_group)['Assets_To_Liability_Ratio_Raw'].transform('median')
         df['Assets_To_Liability_Ratio_Above_Industry'] = np.where(df['Assets_To_Liability_Ratio_Raw'].isna() | df['Sector_Median_Assets_To_Liability'].isna(), np.nan, (df['Assets_To_Liability_Ratio_Raw'] > df['Sector_Median_Assets_To_Liability']).astype(float))
-        
+
         # Ratio of Sales to T Assets > Industry
-        df['Sector_Median_Sales_To_Assets'] = df.groupby(['Screening_Date', 'Sector'])['Sales_To_Assets_Ratio_Raw'].transform('median')
+        df['Sector_Median_Sales_To_Assets'] = df.groupby(industry_group)['Sales_To_Assets_Ratio_Raw'].transform('median')
         df['Sales_To_Assets_Ratio_Above_Industry'] = np.where(df['Sales_To_Assets_Ratio_Raw'].isna() | df['Sector_Median_Sales_To_Assets'].isna(), np.nan, (df['Sales_To_Assets_Ratio_Raw'] > df['Sector_Median_Sales_To_Assets']).astype(float))
-        
+
         # Growth > Industry Median
-        df['Sector_Median_Growth'] = df.groupby(['Screening_Date', 'Sector'])['Sales_3yr_Growth_Raw'].transform('median')
+        df['Sector_Median_Growth'] = df.groupby(industry_group)['Sales_3yr_Growth_Raw'].transform('median')
         df['Growth_Above_Industry'] = np.where(df['Sales_3yr_Growth_Raw'].isna() | df['Sector_Median_Growth'].isna(), np.nan, (df['Sales_3yr_Growth_Raw'] > df['Sector_Median_Growth']).astype(float))
-        
+
         # EPS Growth > Industry
-        df['Sector_Median_EPS_Growth'] = df.groupby(['Screening_Date', 'Sector'])['EPS_3yr_Growth_Raw'].transform('median')
+        df['Sector_Median_EPS_Growth'] = df.groupby(industry_group)['EPS_3yr_Growth_Raw'].transform('median')
         df['EPS_Growth_Above_Industry'] = np.where(df['EPS_3yr_Growth_Raw'].isna() | df['Sector_Median_EPS_Growth'].isna(), np.nan, (df['EPS_3yr_Growth_Raw'] > df['Sector_Median_EPS_Growth']).astype(float))
 
         # Current Year EPS % Change > Industry
-        df['Sector_Median_EPS_Current_Change'] = df.groupby(['Screening_Date', 'Sector'])['Current_EPS_Change_Raw'].transform('median')
+        df['Sector_Median_EPS_Current_Change'] = df.groupby(industry_group)['Current_EPS_Change_Raw'].transform('median')
         df['EPS_Current_Change_Above_Industry'] = np.where(df['Current_EPS_Change_Raw'].isna() | df['Sector_Median_EPS_Current_Change'].isna(), np.nan, (df['Current_EPS_Change_Raw'] > df['Sector_Median_EPS_Current_Change']).astype(float))
 
         # --- 3-Year Margin Streak Rule ---
         has_curr = df['Net_Profit_Margin_Raw'].notna() & df['Sector_Median_Margin'].notna()
         mask_curr_margin = df['Net_Profit_Margin_Raw'] > df['Sector_Median_Margin']
-        
-        df['Sector_Median_Margin_Prev'] = df.groupby(['Screening_Date', 'Sector'])['Net_Profit_Margin_Prev_Raw'].transform('median')
+
+        df['Sector_Median_Margin_Prev'] = df.groupby(industry_group)['Net_Profit_Margin_Prev_Raw'].transform('median')
         has_prev = df['Net_Profit_Margin_Prev_Raw'].notna() & df['Sector_Median_Margin_Prev'].notna()
         mask_prev_margin = df['Net_Profit_Margin_Prev_Raw'] > df['Sector_Median_Margin_Prev']
-        
-        df['Sector_Median_Margin_Prev_2_yr'] = df.groupby(['Screening_Date', 'Sector'])['Net_Profit_Margin_Prev_2_Raw'].transform('median')
+
+        df['Sector_Median_Margin_Prev_2_yr'] = df.groupby(industry_group)['Net_Profit_Margin_Prev_2_Raw'].transform('median')
         has_prev_2 = df['Net_Profit_Margin_Prev_2_Raw'].notna() & df['Sector_Median_Margin_Prev_2_yr'].notna()
         mask_prev_2_margin = df['Net_Profit_Margin_Prev_2_Raw'] > df['Sector_Median_Margin_Prev_2_yr']
 
@@ -471,7 +585,7 @@ def calculate_list_2_rules(df):
     return df
 
 
-def process_historical_snapshot(ticker, full_hist, full_fin, full_bs, full_cash, info, screening_date_str, spy_hist=None):
+def process_historical_snapshot(ticker, full_hist, full_fin, full_bs, full_cash, info, screening_date_str, bench_hist=None):
 
     """
     Slices data to simulate point-in-time knowledge, extracts features, 
@@ -523,14 +637,14 @@ def process_historical_snapshot(ticker, full_hist, full_fin, full_bs, full_cash,
             stock_return = (future_price - current_price) / current_price
             features['Forward_6m_Return'] = stock_return
             
-            # Excess return over SPY for the same window
-            if spy_hist is not None and not spy_hist.empty:
-                spy_at_screen = spy_hist[spy_hist.index <= screening_date]
-                spy_at_forward = spy_hist[spy_hist.index >= forward_date]
-                
-                if not spy_at_screen.empty and not spy_at_forward.empty:
-                    spy_return = (spy_at_forward.iloc[0]['Close'] - spy_at_screen.iloc[-1]['Close']) / spy_at_screen.iloc[-1]['Close']
-                    features['Forward_6m_Excess_Return'] = stock_return - spy_return
+            # Excess return over benchmark for the same window
+            if bench_hist is not None and not bench_hist.empty:
+                bench_at_screen = bench_hist[bench_hist.index <= screening_date]
+                bench_at_forward = bench_hist[bench_hist.index >= forward_date]
+
+                if not bench_at_screen.empty and not bench_at_forward.empty:
+                    bench_return = (bench_at_forward.iloc[0]['Close'] - bench_at_screen.iloc[-1]['Close']) / bench_at_screen.iloc[-1]['Close']
+                    features['Forward_6m_Excess_Return'] = stock_return - bench_return
                 else:
                     features['Forward_6m_Excess_Return'] = np.nan
             else:
@@ -541,22 +655,31 @@ def process_historical_snapshot(ticker, full_hist, full_fin, full_bs, full_cash,
             
     return features
     
-def run_backtest_pipeline(tickers, screening_dates):
+def run_backtest_pipeline(tickers, screening_dates, benchmark_ticker=None, desc=None):
     """
     Main loop to generate multiple historical snapshots for your dataset.
     """
-    
+    verbose = cfg.VERBOSE
     all_snapshots = []
+    iterator = tqdm(tickers, desc=desc) if not verbose else tickers
+
+    # Fetch benchmark (index-aware)
+    bench = benchmark_ticker or "SPY"
     
-    # Fetch SPY benchmark once
-    print("Fetching SPY benchmark data...")
-    spy = yf.Ticker("SPY")
-    spy_hist = spy.history(period="max")
-    if spy_hist.index.tz is not None:
-        spy_hist.index = spy_hist.index.tz_localize(None)
-    
-    for i, ticker in enumerate(tickers):
-        print(f"[{i+1}/{len(tickers)}] Fetching raw data for {ticker}...")
+    if verbose:
+        print(f"Fetching {bench} benchmark data...")
+    bench_ticker = yf.Ticker(bench)
+    bench_hist = bench_ticker.history(period="max")
+    if bench_hist.index.tz is not None: # type: ignore
+        bench_hist.index = pd.DatetimeIndex(bench_hist.index).tz_localize(None)
+
+    if bench_hist.empty:
+        print(f"  WARNING: Could not fetch benchmark {bench}. Excess returns will be NaN.")
+        
+    for ticker in iterator:
+        if verbose:
+            print(f"Fetching raw data for {ticker}...")
+            
         stock = yf.Ticker(ticker)
         
         try:
@@ -566,21 +689,21 @@ def run_backtest_pipeline(tickers, screening_dates):
             full_cash = stock.cashflow
             info = stock.info
         except Exception as e:
-            print(f"  Failed to fetch {ticker}: {e}")
+            if verbose:
+                print(f"  Failed to fetch {ticker}: {e}")
             continue
             
         for date_str in screening_dates:
             row_data = process_historical_snapshot(
-                ticker, full_hist, full_fin, full_bs, full_cash, info, date_str, spy_hist=spy_hist
+                ticker, full_hist, full_fin, full_bs, full_cash, info, date_str, bench_hist=bench_hist
             )
             
             if row_data:
                 all_snapshots.append(row_data)
-    
-    # Throttle to avoid yfinance rate limiting
-    time.sleep(random.uniform(1.5, 3.0))
+        
+        # Throttle to avoid yfinance rate limiting
+        time.sleep(random.uniform(0.5, 1.0))
                 
-    # Convert all gathered rows into a DataFrame and save
     final_df = pd.DataFrame(all_snapshots)
     return final_df
 

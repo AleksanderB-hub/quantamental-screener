@@ -18,6 +18,9 @@ env/
 __pycache__/
 *.pyc
 
+# --- Claude.md file
+CLAUDE.md
+
 # --- Jupyter Notebooks ---
 .ipynb_checkpoints/
 

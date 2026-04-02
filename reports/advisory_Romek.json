@@ -1,0 +1,30 @@
+{
+  "user_id": "Romek",
+  "profile": {
+    "user_id": "Romek",
+    "profile_label": "Aggressive",
+    "agent_parameters": {
+      "time_horizon_years": 2,
+      "primary_objective": "CAPITAL_APPRECIATION",
+      "esg_preference": "STRICT",
+      "liquidity_needs": "VERY_LOW",
+      "max_drawdown_capacity_pct": 40,
+      "capacity_score": 15,
+      "tolerance_score": 12
+    }
+  },
+  "recommendations": [
+    {
+      "ticker": "BSX",
+      "stage3_assessment": "BUY",
+      "personalized_advice": "**AVOID.** While BSX demonstrates strong fundamentals and fits the aggressive risk profile and 2-year horizon, the significant insider selling ($129.6M with zero purchases) combined with neutral-to-negative signal breakdown suggests the market has already priced in near-term upside, limiting capital appreciation potential for a client seeking aggressive growth. Additionally, the STRICT ESG preference requires heightened scrutiny; although no material ESG concerns are identified, the lack of positive ESG differentiation and the generic nature of available ESG evidence fail to meet the threshold for a STRICT ESG mandate in a competitive medtech landscape.",
+      "recommendation": "AVOID"
+    },
+    {
+      "ticker": "KO",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**AVOID.** While KO's 9-10% upside aligns with your 2-year horizon and 40% drawdown tolerance, your STRICT ESG preference disqualifies this holding due to material plastic waste concerns and documented execution gaps in sustainability initiatives. For a capital appreciation objective, KO's defensive profile and modest growth guidance (4-6% organic revenue) offer insufficient return potential relative to more dynamic alternatives available to aggressive investors.",
+      "recommendation": "AVOID"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "user_id": "Aleksander",
+  "profile_label": "Moderate",
+  "agent_parameters": {
+    "time_horizon_years": 20,
+    "primary_objective": "BALANCED",
+    "esg_preference": "NEUTRAL",
+    "liquidity_needs": "LOW",
+    "max_drawdown_capacity_pct": 25,
+    "capacity_score": 11,
+    "tolerance_score": 8
+  }
+}

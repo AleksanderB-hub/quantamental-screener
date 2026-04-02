@@ -1,0 +1,192 @@
+{
+  "user_id": "alex",
+  "profile": {
+    "user_id": "alex",
+    "profile_label": "Moderate",
+    "agent_parameters": {
+      "time_horizon_years": 20,
+      "primary_objective": "BALANCED",
+      "esg_preference": "MODERATE",
+      "liquidity_needs": "LOW",
+      "max_drawdown_capacity_pct": 25,
+      "capacity_score": 12,
+      "tolerance_score": 8
+    }
+  },
+  "recommendations": [
+    {
+      "ticker": "AEE",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 Ameren aligns well with your 20-year balanced objective and 25% drawdown tolerance through its defensive utility characteristics, consistent earnings execution, and dividend stability, making it suitable as a portfolio stabilizer. The regulatory risks and near-term restructuring uncertainty warrant a cautious stance rather than aggressive accumulation, particularly given your moderate ESG preference and the company's shareholder rejection of Paris Agreement verification, which signals governance friction. At current valuations, this is a prudent core holding pending clarity on rate case outcomes and leadership transition execution, but not a priority for new capital allocation.",
+      "recommendation": "HOLD"
+    },
+    {
+      "ticker": "AEP",
+      "stage3_assessment": "BUY",
+      "personalized_advice": "**HOLD** \u2013 AEP is operationally sound with strong earnings visibility and a 20-year horizon that accommodates its energy transition trajectory, but the legacy environmental liabilities and ongoing regulatory uncertainty create volatility that could test your 25% drawdown tolerance during rate case setbacks or compliance escalations. Your MODERATE ESG preference allows this investment despite material environmental concerns, though the $4.6 billion remediation overhang and coal-heavy legacy warrant monitoring rather than aggressive accumulation. The balanced objective is well-served by AEP's regulated utility cash flows, but current valuation and rising rate headwinds suggest waiting for a better entry point rather than buying at consensus targets.",
+      "recommendation": "BUY"
+    },
+    {
+      "ticker": "AOS",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2013 AOS aligns with your 20-year horizon and moderate risk tolerance, as the company's strong ESG credentials and earnings resilience provide downside protection, while current valuation near the 52-week low offers reasonable entry economics for a balanced portfolio. However, the combination of China headwinds, new CEO execution risk, and revenue weakness creates near-term uncertainty that justifies waiting for clearer catalysts rather than initiating a new position. Your 25% drawdown tolerance can absorb the stock's volatility, but the lack of immediate positive momentum means this is better suited as a monitored position rather than an active buy at this juncture.",
+      "recommendation": "BUY"
+    },
+    {
+      "ticker": "BF-B",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 BF-B aligns with your 20-year horizon and 25% drawdown tolerance, as the company's strong brand moat (Jack Daniel's) and buyback support long-term value despite near-term earnings headwinds and sector structural challenges. The MODERATE ESG concern around DEI practices is acceptable under your ESG preference and does not warrant avoidance. However, wait for clearer evidence of earnings stabilization and successful CFO transition before initiating or adding positions, as execution risk remains elevated during this strategic repositioning.",
+      "recommendation": "AVOID"
+    },
+    {
+      "ticker": "BIIB",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 BIIB aligns with your 20-year horizon and moderate risk tolerance, as the stabilizing core business and 2026 earnings recovery potential offer meaningful upside despite near-term Q4 headwinds that fit within your 25% drawdown tolerance. The strong ESG profile supports your moderate ESG preference, and the biotech-specific pipeline uncertainty is manageable given your long time horizon to weather volatility. However, avoid initiating a large position now; wait for either Q4 results clarity or a more attractive entry point before committing significant capital.",
+      "recommendation": "AVOID"
+    },
+    {
+      "ticker": "CF",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 CF Industries aligns with your 20-year horizon and moderate risk tolerance, as the blue ammonia transition and dividend growth offer long-term value creation potential that can weather commodity cycles within your 25% drawdown tolerance. However, near-term execution uncertainty around the Q1 2025 blue ammonia decision, governance concerns (proxy disputes, antitrust litigation), and compressed margin visibility argue against initiating or adding positions until either nitrogen pricing improves or management demonstrates clearer capital allocation priorities. Your moderate ESG preference permits ownership despite governance red flags, but monitor the new CEO's strategic direction and legal outcomes before increasing exposure.",
+      "recommendation": "HOLD"
+    },
+    {
+      "ticker": "CRH",
+      "stage3_assessment": "BUY",
+      "personalized_advice": "**HOLD** \u2013 CRH aligns well with your 20-year horizon and moderate risk tolerance, with strong fundamentals and infrastructure tailwinds supporting long-term growth, but the limited 4.17% upside to consensus price target and unresolved decades-long monopolistic practice allegations in Ireland create insufficient margin of safety at current valuations. Your moderate ESG preference allows tolerance for the governance concerns, but the weak near-term risk/reward profile suggests waiting for a more attractive entry point rather than buying at current levels. The company remains portfolio-worthy for future consideration once either regulatory clarity emerges or valuation becomes more compelling relative to your 25% drawdown tolerance.",
+      "recommendation": "BUY"
+    },
+    {
+      "ticker": "CTRA",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2013 CTRA is appropriate for your 20-year horizon and moderate risk tolerance, as its strong free cash flow generation ($2.0B in 2025) and reserve growth support long-term energy exposure within a balanced portfolio, well within your 25% drawdown tolerance. The near-term 35% EPS decline and governance concerns from activist pressure create near-term volatility that justifies waiting for clarity rather than initiating a new position, but existing holdings warrant retention given the company's operational fundamentals and forward guidance. Your moderate ESG preference allows exposure to energy, though monitor the board's response to governance allegations before adding to the position.",
+      "recommendation": "HOLD"
+    },
+    {
+      "ticker": "DECK",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 DECK is appropriate for this moderate-risk, 20-year investor because the company's solid fundamentals (7% revenue growth, earnings beats) and lack of ESG concerns align with a balanced objective, and the 50% drawdown remains within the 25% tolerance threshold, though the stock has already exceeded it. However, the persistent downward price pressure, brand concentration risk, and unclear recovery catalyst warrant waiting for stabilization rather than adding new capital at this uncertain inflection point. For existing holders with a long horizon, the position merits retention given the quality business and potential valuation opportunity, but new buyers should monitor for confirmed technical or sentiment reversal before committing.",
+      "recommendation": "BUY"
+    },
+    {
+      "ticker": "DUK",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 Duke Energy is appropriate for this client's 20-year balanced objective and 25% drawdown tolerance, as its defensive utility characteristics provide stable dividend income and modest capital appreciation with limited cyclical volatility. The substantial capex requirements and regulatory risks create near-term headwinds that justify holding rather than buying, especially given the absence of compelling catalysts and fair current valuation. The moderate ESG concerns around coal dependency and coal ash remediation are manageable under your MODERATE ESG preference but warrant monitoring of the company's energy transition execution over your long horizon.",
+      "recommendation": "BUY"
+    },
+    {
+      "ticker": "D",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 Dominion Energy aligns with your 20-year horizon and moderate risk tolerance, as the data center demand tailwind and 12% upside potential support balanced growth, and a 25% drawdown tolerance accommodates utility volatility. However, the material ESG concerns (Sierra Club's \"dirtiest utilities\" ranking and lagging renewable transition) warrant caution given your moderate ESG preference; the elevated capex and dividend sustainability risks in a higher-rate environment also merit waiting for clearer execution before adding exposure. This is a defensible hold for income and long-term appreciation, but not a compelling buy until ESG progress and balance sheet pressures improve.",
+      "recommendation": "BUY"
+    },
+    {
+      "ticker": "ED",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 ED is appropriate for this client's 20-year horizon and balanced objective, offering defensive characteristics with 6% annual EPS growth and modest dividend income that align with moderate risk tolerance and a 25% drawdown cushion. The fair valuation (P/E ~19.75x) and limited near-term upside don't justify a BUY, but the stock's low volatility, regulatory stability, and ESG inclusion (medium risk only) make it suitable as a core holding rather than an avoid. The insider selling and interest rate sensitivity warrant monitoring, but neither disqualifies ED from a balanced portfolio seeking steady, predictable returns over two decades.",
+      "recommendation": "AVOID"
+    },
+    {
+      "ticker": "EIX",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 EIX aligns with your 20-year balanced objective and moderate risk tolerance, as the company's consistent earnings beats and regulatory protections (AB 1054) support long-term utility stability within your 25% drawdown tolerance. However, the divided analyst consensus, Morgan Stanley's Underweight rating, and unquantifiable wildfire tail risk argue against aggressive accumulation; a holding position allows you to benefit from dividend income and potential regulatory clarity without overcommitting to a stock with material downside scenarios. Your moderate ESG preference is satisfied by the company's positive ESG trajectory, though you should monitor wildfire operational risk as an ongoing governance concern.",
+      "recommendation": "HOLD"
+    },
+    {
+      "ticker": "EQT",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2013 EQT is appropriate for this moderate-risk, 20-year horizon client given strong earnings momentum and improving ESG practices that align with moderate ESG preferences, but the concentrated insider selling and commodity price volatility warrant caution before adding new positions. The stock's 25% drawdown tolerance fits within the client's risk parameters, yet the neutral market sentiment and execution uncertainty on 2026 guidance suggest waiting for clearer conviction signals before committing capital. Monitor for stabilization of insider selling activity and natural gas price direction before upgrading to BUY.",
+      "recommendation": "BUY"
+    },
+    {
+      "ticker": "EVRG",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 Evergy is appropriate for this moderate-risk, 20-year balanced portfolio given its stable cash flows, dividend growth, and 25% drawdown tolerance alignment with utility sector volatility; however, the ESG backtracking and patent litigation create near-term headwinds that don't justify new accumulation at current levels. Existing positions should be maintained for income stability, but wait for either ESG credibility restoration or legal clarity before adding, as your moderate ESG preference means these concerns warrant caution without triggering an outright avoid. The stock's lack of near-term catalysts and regulatory/reputational risks make it a \"steady holder\" rather than a compelling buy in your balanced allocation.",
+      "recommendation": "AVOID"
+    },
+    {
+      "ticker": "EXE",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 EXE aligns with your 20-year balanced objective and 25% drawdown tolerance, as the analyst earnings base case and insider buying provide a reasonable foundation, but the leadership vacuum and wide earnings dispersion (\u00b125% range) warrant waiting for CEO clarity before committing capital. Your moderate ESG preference accommodates natural gas exposure, though the commodity price sensitivity and regulatory headwinds mean this is a \"prove it\" position rather than a core holding. Monitor for CEO appointment and gas price stabilization before upgrading to BUY.",
+      "recommendation": "BUY"
+    },
+    {
+      "ticker": "GRMN",
+      "stage3_assessment": "BUY",
+      "personalized_advice": "**BUY** \u2014 Garmin aligns well with this client's 20-year balanced objective and 25% drawdown tolerance, offering diversified revenue streams across aviation, marine, and outdoor segments that provide stability beyond consumer wearables competition. The company's consistent earnings beats, record revenue growth of 15% YoY, and moderate ESG profile (no material controversies) support a long-term holding thesis without triggering ESG concerns. While competitive and regulatory risks exist, they are manageable within a balanced portfolio and do not materially threaten the risk-reward profile for a moderate-risk investor with this time horizon.",
+      "recommendation": "BUY"
+    },
+    {
+      "ticker": "INCY",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2013 INCY aligns with your 20-year balanced objective and 25% drawdown tolerance, as the modest earnings momentum and management buybacks provide stability, while the fairly valued entry point avoids overpaying for execution risk. However, the heavy Jakafi patent cliff and binary pipeline risks mean this is a maintenance position rather than a growth driver; your moderate ESG preference is satisfied by adequate (BBB/46) ratings, but the lack of ESG differentiation and near-term catalysts prevent a BUY recommendation. Monitor Q2 2025 earnings and pipeline updates closely, as clinical trial outcomes could warrant reassessment within your risk parameters.",
+      "recommendation": "AVOID"
+    },
+    {
+      "ticker": "JNJ",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 JNJ aligns with your 20-year horizon and moderate risk tolerance, as its pharmaceutical and MedTech focus offer long-term growth potential within your 25% drawdown tolerance, but the stock's current valuation near all-time highs provides insufficient margin of safety for a new position. The unresolved talcum powder litigation and historical governance issues present material ESG concerns that, while not disqualifying under your MODERATE ESG preference, warrant waiting for either a better entry point or meaningful litigation resolution before committing capital. Your balanced objective is better served by accumulating JNJ on weakness rather than at peak valuations, allowing you to capture the strategic transformation upside with better risk-adjusted returns.",
+      "recommendation": "HOLD"
+    },
+    {
+      "ticker": "KIM",
+      "stage3_assessment": "BUY",
+      "personalized_advice": "**BUY** \u2014 KIM aligns well with your 20-year horizon and moderate risk tolerance; grocery-anchored REITs provide defensive characteristics suitable for balanced portfolios, and the 25% drawdown tolerance accommodates sector-wide REIT volatility from interest rate pressures. Your moderate ESG preference is satisfied by Kimco's strong ESG credentials (BBB MSCI, 81/100 Refinitiv), and the company's scale, stable cash flows, and upward analyst momentum support long-term wealth accumulation without excessive near-term concentration risk. The primary headwinds (rising rates, retail stress) are cyclical sector concerns rather than company-specific threats, making this a prudent core holding for a balanced 20-year strategy.",
+      "recommendation": "BUY"
+    },
+    {
+      "ticker": "MDT",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 MDT aligns well with your 20-year balanced objective and 25% drawdown tolerance, offering defensive dividend income and exposure to healthcare innovation with no material ESG concerns. The restructuring catalysts (diabetes spin-off, cost reduction, heart valve breakthrough) provide medium-term upside potential that justifies maintaining exposure, though near-term EPS compression and execution risks limit aggressive accumulation. Your long time horizon allows you to weather the 12-18 month transition period and benefit from successful strategic execution, making this a core holding rather than a new buy at current valuations.",
+      "recommendation": "BUY"
+    },
+    {
+      "ticker": "MRK",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 Merck aligns well with your 20-year balanced objective and moderate risk tolerance, as its strong pipeline and quality franchise support long-term growth within your 25% drawdown tolerance, but the significant earnings visibility gap ($9.01 vs. $5.13 FY2026 forecast) and patent cliff risk warrant waiting for clarity before adding new positions. Your moderate ESG preference is satisfied, as Merck maintains credible environmental and governance commitments with no material controversies, making this a suitable core holding to maintain while monitoring for better entry points.",
+      "recommendation": "HOLD"
+    },
+    {
+      "ticker": "NEM",
+      "stage3_assessment": "BUY",
+      "personalized_advice": "**HOLD** \u2014 NEM aligns with your 20-year horizon and moderate risk tolerance, and the operational improvements plus dividend support a balanced portfolio position, but the stock's recent surge to near-record highs has already priced in much of the gold rally upside, limiting near-term appreciation potential. The CFO transition and heavy gold price dependency create meaningful near-term volatility risk that could test your 25% drawdown tolerance if commodity prices reverse; waiting for a pullback or building a smaller initial position would be more prudent than chasing at current valuations. Your moderate ESG preference is satisfied by Newmont's transparency and robust framework, though monitor the new leadership team's sustainability commitment going forward.",
+      "recommendation": "HOLD"
+    },
+    {
+      "ticker": "PFE",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2013 Pfizer is appropriate for your 20-year balanced portfolio given its dividend income, scale, and diversified pipeline, which align with moderate risk tolerance and long time horizon; however, the litigation overhang around Depo-Provera and post-COVID revenue uncertainty warrant waiting for clarity before adding positions. Your 25% drawdown tolerance can absorb near-term volatility, but the ESG controversy (patient safety concerns) is material enough under your MODERATE preference to justify a cautious stance rather than accumulation. Revisit this position once litigation risk is quantified and the company demonstrates sustainable non-COVID revenue growth through pipeline execution.",
+      "recommendation": "HOLD"
+    },
+    {
+      "ticker": "PG",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 PG is appropriate for this moderate-risk, 20-year horizon client seeking balanced returns, as its defensive characteristics, dividend reliability, and lack of ESG concerns align well with a moderate ESG preference and 25% drawdown tolerance. However, the neutral signal environment and limited near-term capital appreciation catalysts mean this is best suited as a core stabilizing position rather than a growth driver, making it a suitable hold rather than a new buy at current valuations. The stock's macroeconomic sensitivity and currency headwinds are manageable within a diversified balanced portfolio but do not warrant aggressive accumulation given the institutional caution reflected in recent position trimming.",
+      "recommendation": "BUY"
+    },
+    {
+      "ticker": "PPG",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 PPG is appropriate for this moderate-risk, 20-year horizon client given its attractive valuation (12.3x forward P/E), solid cash flow, and positive ESG profile, which align with a balanced objective and moderate ESG preference. The 5.6% EPS miss and near-term macro headwinds present execution risk, but these concerns are manageable within a 25% drawdown tolerance and long time horizon that allows for cyclical recovery. The HOLD recommendation reflects that PPG is worth maintaining if already owned, though the current uncertainty doesn't justify aggressive accumulation until earnings momentum stabilizes.",
+      "recommendation": "HOLD"
+    },
+    {
+      "ticker": "REG",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2013 REG is appropriate for this moderate-risk, 20-year horizon client given its defensive grocery-anchored REIT structure, strong ESG credentials, and operational momentum, which align with a balanced objective and 25% drawdown tolerance. However, the recent EPS miss, interest rate sensitivity, and retail sector headwinds create near-term uncertainty that warrants waiting for clearer 2026 FFO execution before initiating or adding positions. If already held, maintain the position; if considering entry, await further earnings confirmation to establish a more compelling risk-reward setup.",
+      "recommendation": "HOLD"
+    },
+    {
+      "ticker": "UHS",
+      "stage3_assessment": "BUY",
+      "personalized_advice": "**HOLD** \u2014 UHS's strong earnings beat and 20-year horizon align well with your balanced objective and 25% drawdown tolerance, but the stock has already rallied 12% post-earnings, limiting near-term margin of safety and reducing the urgency to initiate a position now. The material regulatory and billing practice risks, combined with policy-dependent Medicaid revenue, warrant a cautious approach despite solid fundamentals; your moderate ESG preference permits ownership but requires active monitoring of governance developments. Consider building a position on any pullback rather than chasing current momentum, and reassess if regulatory headwinds materialize.",
+      "recommendation": "HOLD"
+    },
+    {
+      "ticker": "WSM",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 WSM is appropriate for this moderate-risk, 20-year horizon client, as its balanced operational performance and diversified brand portfolio align with a long-term balanced objective, and the 25% drawdown tolerance can absorb discretionary retail cyclicality. However, the persistent insider selling ($42M over 24 months), weak analyst conviction (9 of 18 holds), and structural exposure to housing/consumer spending cycles argue against initiating or adding positions until macro conditions stabilize or valuation becomes more compelling. The moderate ESG profile poses no constraint, but the risk-reward remains neutral rather than favorable at current levels.",
+      "recommendation": "HOLD"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "user_id": "Aleksander",
+  "profile": {
+    "user_id": "Aleksander",
+    "profile_label": "Moderate",
+    "agent_parameters": {
+      "time_horizon_years": 20,
+      "primary_objective": "BALANCED",
+      "esg_preference": "NEUTRAL",
+      "liquidity_needs": "LOW",
+      "max_drawdown_capacity_pct": 25,
+      "capacity_score": 11,
+      "tolerance_score": 8
+    }
+  },
+  "recommendations": [
+    {
+      "ticker": "ANET",
+      "stage3_assessment": "BUY",
+      "personalized_advice": "**BUY** \u2014 ANET aligns well with your 20-year horizon and balanced objective, as the structural AI infrastructure tailwind provides durable long-term growth potential that justifies moderate valuation premiums for a quality compounder. Your 25% drawdown tolerance can accommodate ANET's elevated multiples and near-term volatility risk, particularly given the strong earnings momentum and analyst consensus supporting the thesis. The neutral ESG stance and absence of material governance concerns remove any compliance friction, making this a suitable core holding for your portfolio.",
+      "recommendation": "BUY"
+    },
+    {
+      "ticker": "DECK",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 DECK is appropriate for this moderate-risk, 20-year balanced portfolio given its recent earnings beat, strong brand portfolio (UGG, HOKA), and absence of material ESG concerns that would conflict with your neutral ESG stance. The stock's consumer cyclical sensitivity and recent underperformance warrant caution against a BUY, but the lack of fundamental deterioration and solid long-term runway justify holding rather than avoiding. With your 25% drawdown tolerance and two-decade horizon, you can weather near-term macro uncertainty while waiting for clearer guidance and a positive re-rating catalyst.",
+      "recommendation": "AVOID"
+    },
+    {
+      "ticker": "INCY",
+      "stage3_assessment": "HOLD",
+      "personalized_advice": "**HOLD** \u2014 INCY is appropriately rated for your 20-year balanced portfolio and 25% drawdown tolerance, as its fair valuation (18x forward earnings) and mixed but stable fundamentals offer neither compelling upside nor immediate downside risk. The critical 2026 pipeline catalysts (Jakafi XR launch, povorcitinib data) and 2028 patent cliff are material long-term concerns that warrant monitoring rather than immediate action, making a holding position prudent until visibility improves. Your extended time horizon allows you to benefit from potential pipeline success while avoiding the near-term earnings headwinds and guidance contraction that would concern shorter-term investors.",
+      "recommendation": "AVOID"
+    },
+    {
+      "ticker": "MNST",
+      "stage3_assessment": "BUY",
+      "personalized_advice": "**BUY** \u2014 MNST aligns well with this moderate-risk, 20-year horizon client seeking balanced returns; the 22\u201314% projected EPS growth over two years provides durable earnings momentum that justifies the recent appreciation, and the 25% drawdown tolerance accommodates near-term volatility from recession fears or valuation compression. The Coca-Cola distribution partnership and dominant market position offer defensive characteristics suitable for a balanced portfolio, while ESG neutrality removes any constraint on this holding. Monitor competitive and macro risks, but the fundamental growth trajectory and institutional accumulation signal support a constructive entry on pullbacks.",
+      "recommendation": "BUY"
+    },
+    {
+      "ticker": "NVDA",
+      "stage3_assessment": "BUY",
+      "personalized_advice": "**BUY** \u2014 NVIDIA aligns well with your 20-year horizon and moderate risk tolerance; the company's structural AI tailwinds, dominant competitive moat, and current valuation pullback offer attractive risk-adjusted returns that support a balanced portfolio's growth component, even with a P/E of 46 justified by earnings momentum. Your 25% drawdown tolerance can absorb the stock's volatility, and geopolitical/macro risks, while real, are manageable over two decades as AI infrastructure buildout remains secular. With neutral ESG preferences and no material NVIDIA-specific concerns, this position strengthens your long-term wealth accumulation without compromising your balanced objective.",
+      "recommendation": "BUY"
+    }
+  ]
+}

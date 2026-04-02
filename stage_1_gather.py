@@ -5,11 +5,13 @@ changes for each candidate stock. Saves raw text corpus as JSON.
 This uses claude API for retrieval, the base model used is sonnet 4.6, you can adjust accordingly if needed.
 """
 
+import csv
 import json
 import os
 import time
+import pandas as pd
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from langchain_community.tools import DuckDuckGoSearchResults
 from langchain_anthropic import ChatAnthropic
@@ -23,14 +25,18 @@ def search_stock(ticker: str, company_name: str) -> dict:
     Runs 4 targeted searches for a single stock.
     Returns a dict with all search results organised by category.
     """
-    search_tool = DuckDuckGoSearchResults(max_results=cfg.MAX_RESULTS_PER_SEARCH)
+    search_tool = DuckDuckGoSearchResults(num_results=cfg.MAX_RESULTS_PER_SEARCH)
+    end_date = cfg.SEARCH_DATE_REFERENCE
+    start_date = end_date - timedelta(days=cfg.SEARCH_LOOKBACK_MONTHS * 30)
+    date_range = f"{start_date.strftime('%Y-%m')} to {end_date.strftime('%Y-%m')}"
+    year_str = end_date.strftime('%Y')
 
     # Define search queries per category
     queries = {
-        "recent_news": f"{company_name} {ticker} stock news 2025",
-        "earnings_outlook": f"{company_name} {ticker} earnings analyst forecast",
-        "esg": f"{company_name} ESG controversy environmental social governance",
-        "management": f"{company_name} CEO executive management changes insider trading",
+        "recent_news": f"{company_name} {ticker} stock news {date_range}",
+        "earnings_outlook": f"{company_name} {ticker} earnings analyst forecast {year_str}",
+        "esg": f"{company_name} ESG controversy environmental social governance {year_str}",
+        "management": f"{company_name} CEO executive management changes insider trading {year_str}",
     }
     
     all_results = {
@@ -61,7 +67,7 @@ def search_stock(ticker: str, company_name: str) -> dict:
     return all_results
 
 def summarise_with_claude(search_results: dict) -> dict:
-    llm = ChatAnthropic(model="claude-sonnet-4-6", max_tokens=2000, temperature=0)
+    llm = ChatAnthropic(model="claude-sonnet-4-6", max_tokens=2000, temperature=0)  # type: ignore
     
     ticker = search_results["ticker"]
     company = search_results["company_name"]
@@ -93,7 +99,7 @@ def summarise_with_claude(search_results: dict) -> dict:
     response = llm.invoke(messages)
     
     # Clean and parse the response
-    raw = response.content.strip()
+    raw = str(response.content).strip()
     # Strip markdown backticks if present
     if raw.startswith("```"):
         raw = raw.split("\n", 1)[1] if "\n" in raw else raw[3:]
@@ -108,16 +114,26 @@ def summarise_with_claude(search_results: dict) -> dict:
     
     return signals
 
-def process_single_stock(ticker: str, company_name: str) -> dict:
+def process_stock_stage_1(ticker: str, company_name: str = None) -> dict: # type: ignore
     """
     Full Stage 1 pipeline for one stock:
     1. Search the web
     2. Send results to Claude for structured extraction
     3. Save everything to JSON
     """
+    if company_name is None:
+        company_name = get_company_name(ticker)
+
     print(f"\n{'='*60}")
     print(f"Processing: {company_name} ({ticker})")
     print(f"{'='*60}")
+    
+    # If you have the news reports ready
+    output_path = cfg.STAGE1_DIR / f"{ticker}_research.json"
+    if output_path.exists() and not cfg.FORCE_REFRESH:
+        print(f"  Skipping {ticker} — Stage 1 output already exists")
+        with open(output_path) as f:
+            return json.load(f)
     
     # Step 1: Search
     search_results = search_stock(ticker, company_name)
@@ -146,11 +162,95 @@ def process_single_stock(ticker: str, company_name: str) -> dict:
     
     return output
 
-if __name__ == "__main__":
-    # Test with one stock from your candidates
-    result = process_single_stock("EQT", "EQT Corporation")
+def get_company_name(ticker: str) -> str:
+    """
+    Looks up the company long name via yfinance.
+    Falls back to the ticker string itself if yfinance fails or returns nothing.
+    """
+    try:
+        import yfinance as yf
+        info = yf.Ticker(ticker).info
+        name = info.get("longName", "").strip()
+        if name:
+            return name
+        short = info.get("shortName", "").strip()
+        return short if short else ticker
+    except Exception:
+        return ticker
+
+
+def run_batch(csv_path: str, min_score: int) -> list:
+    """
+    Runs Stage 1 for all tickers in the screener CSV above min_score.
+    Returns list of successfully processed tickers.
+    """
+    df = pd.read_csv(csv_path)
+    candidates = df[df["Score"] >= min_score]
     
-    print(f"\n{'='*60}")
-    print("EXTRACTED SIGNALS:")
-    print(f"{'='*60}")
-    print(json.dumps(result["signals"], indent=2))
+    successful = []
+    
+    for _, row in candidates.iterrows():
+        ticker = row["Ticker"]
+        # Use Sector as fallback if no company name column exists
+        company_name = row.get("Company_Name", row.get("Sector", ticker))
+        
+        try:
+            process_stock_stage_1(ticker, company_name)
+            successful.append(ticker)
+        except Exception as e:
+            print(f"  WARNING: Failed for {ticker}: {e}")
+        
+        time.sleep(cfg.DELAY_BETWEEN_SEARCHES)
+    
+    print(f"\nStage 1 complete: {len(successful)}/{len(candidates)} stocks processed.")
+    return successful
+
+
+def write_stage1_summary():
+    """
+    Reads all per-stock Stage 1 JSON files and writes a summary CSV.
+    Columns: Ticker, Sentiment, Confidence, News_Summary
+    """
+    rows = []
+    for path in sorted(cfg.STAGE1_DIR.glob("*_research.json")):
+        with open(path) as f:
+            data = json.load(f)
+        signals = data.get("signals", {})
+        news_summary = signals.get("news_summary", "")
+        # Collapse to one line
+        one_line = news_summary.replace("\n", " ").strip()
+        rows.append({
+            "Ticker": data.get("ticker", path.stem.replace("_research", "")),
+            "Sentiment": signals.get("sentiment", ""),
+            "Confidence": signals.get("confidence", ""),
+            "News_Summary": one_line,
+        })
+
+    with open(cfg.STAGE1_SUMMARY_CSV, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=["Ticker", "Sentiment", "Confidence", "News_Summary"])
+        writer.writeheader()
+        writer.writerows(rows)
+
+    print(f"\nStage 1 summary written to: {cfg.STAGE1_SUMMARY_CSV} ({len(rows)} stocks)")
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Stage 1: Data Gathering")
+    parser.add_argument("--csv", type=str, default=None,
+                        help="Path to screener CSV for batch mode")
+    parser.add_argument("--min-score", type=int, default=cfg.PHASE_B_RUNNER_MIN_SCORE)
+    args = parser.parse_args()
+
+    if args.csv:
+        run_batch(args.csv, args.min_score)
+        write_stage1_summary()
+    else:
+        # Legacy single-stock mode
+        result = process_stock_stage_1("EQT", "EQT Corporation")
+        print(f"\n{'='*60}")
+        print("EXTRACTED SIGNALS:")
+        print(f"{'='*60}")
+        print(json.dumps(result["signals"], indent=2))
+        write_stage1_summary()

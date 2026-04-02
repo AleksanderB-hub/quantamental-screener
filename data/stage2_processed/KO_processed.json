@@ -1,0 +1,232 @@
+{
+  "ticker": "KO",
+  "company_name": "Coca-Cola Company (The)",
+  "stage1_claude_signals": {
+    "news_summary": "Coca-Cola announced Q4 2025 earnings on February 10, 2026, reporting rising demand despite higher prices. The company elected a new officer and approved its 64th consecutive annual dividend increase in February 2026. Coca-Cola also announced the timing of its Q1 2026 earnings release, scheduled for later in April 2026.",
+    "sentiment": "POSITIVE",
+    "earnings_outlook": "Management projects organic revenue growth of 4-6% and comparable EPS growth of 7-8% for 2026, with slight currency tailwinds expected. Wall Street analysts hold a consensus 12-month price target of approximately $80-81, implying roughly 9-10% upside from current trading levels.",
+    "esg_flags": "Coca-Cola faces ongoing environmental concerns related to plastic waste and waste management practices. The company has been subject to environmental controversies, though it continues efforts to improve sustainability practices.",
+    "management_signals": "Significant leadership transition underway: Henrique Braun, a 30-year company veteran and former Chief Operating Officer, has been named as the new CEO, replacing long-serving CEO James Quincey. This is an insider appointment, suggesting strategic continuity.",
+    "key_risks": "Currency headwinds and macroeconomic pressures in key markets such as North America and Latin America pose near-term revenue risks. Additionally, increasing taxes on sugary drinks in markets like Mexico and potential demand softness due to higher consumer prices could weigh on volume growth.",
+    "confidence": "HIGH"
+  },
+  "stage2_local_signals": [
+    {
+      "source_category": "recent_news",
+      "original_snippet": "LatestNewsMar 31,202610:00 am ET TheCoca-ColaCompanyAnnounces Timing of First Quarter2026Earnings Release \u00bb View Press Release",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "The Coca-Cola Company announces the timing of its first quarter 2026 earnings release."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "TheCoca\u2011ColaCompany(NYSE:KO) is a global beverage manufacturer, marketer and distributor best known for its flagshipCoca\u2011Colasoda. Headquartered in Atlanta, Georgia, thecompanydevelops and sells concentrates, syrups and finished beverages across a broad portfolio of brands. Its product range spans sparkling soft drinks, bottled water, sports drinks, juices, ready\u2011to\u2011drink teas ...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "PRODUCT",
+        "relevance": "HIGH",
+        "summary": "This snippet provides an overview of The Coca-Cola Company's products and operations."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "Board of Directors of TheCoca-ColaCompanyElectsNewOfficer and Approves 64th Consecutive Annual Dividend IncreaseFeb 192026Coca-ColaReports Fourth Quarter and Full Year2025ResultsFeb102026",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "MANAGEMENT",
+        "relevance": "HIGH",
+        "summary": "The Coca-Cola Company's board elected a new officer and approved another dividend increase."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "A detailed overview of TheCoca-ColaCompany(KO)stock, including real-time price, chart, key statistics,news, and more.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "OTHER",
+        "relevance": "MEDIUM",
+        "summary": "The snippet provides an overview of KO stock without focusing on specific events."
+      }
+    },
+    {
+      "source_category": "recent_news",
+      "original_snippet": "Get the latestnewsand real-time alerts from TheCoca-ColaCompany(KO)stockat Seeking Alpha.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "OTHER",
+        "relevance": "LOW",
+        "summary": "The snippet is about getting news and real-time alerts for Coca-Cola's stock but does not provide specific information."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "3 weeks ago -Coca-Cola 2026 stock forecast with insights into earnings, key financial performance metrics, and technical analysis predicting future price movements.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "The snippet discusses Coca-Cola's 2026 stock forecast focusing on earnings and financial metrics."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "10 hours ago -2026 Outlook: Management projects5-6% organic revenue growth with slight currency tailwinds, positioning the company for continued value creation. Valuation Tension: Wall Street analysts set a consensus price target of $79.08, suggesting modest ...",
+      "classification": {
+        "sentiment": "POSITIVE",
+        "category": "MANAGEMENT",
+        "relevance": "HIGH",
+        "summary": "Management forecasts 5-6% organic revenue growth and Wall Street sets a price target of $79.08 for KO."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "February 10, 2026 -However, demand for its drinks in North America and Latin America is beginning to show signs of improvement. Looking ahead to 2026, the company is projectingorganic revenue growth of 4% to 5% and comparable earnings per share growth of 7% to 8%for ...",
+      "classification": {
+        "sentiment": "POSITIVE",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "KO projects organic revenue growth and earnings per share growth for 2026."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "2 weeks ago -When is CocaCola's next earnings announcement? View the latest KO earnings date, analysts forecasts, earnings history, and conference call transcripts.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "EARNINGS",
+        "relevance": "HIGH",
+        "summary": "The snippet discusses Coca-Cola's (KO) upcoming earnings announcement, including analysts' forecasts and past earnings history."
+      }
+    },
+    {
+      "source_category": "earnings_outlook",
+      "original_snippet": "February 16, 2026 -Barchart reports aconsensus 12-month KO stock forecast of about $80.83, implying a roughly 9.9% premium to prevailing trading levels at the time, with the highest published target at $87.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "MACRO",
+        "relevance": "HIGH",
+        "summary": "A consensus 12-month forecast for KO stock is around $80.83, suggesting a modest premium over current prices."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "... told Breitbart News that hiscompanyisthe\u201cstarting point\u201d to counteringthecorporate push forenvironmental,social, andgovernance(ESG) and ...",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "ESG",
+        "relevance": "MEDIUM",
+        "summary": "A company executive dismisses ESG as a corporate push."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "...environmentalcontroversiesand improve waste management practices , others point out their negative effects onenvironmental,socialandgovernance...",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "ESG",
+        "relevance": "HIGH",
+        "summary": "The snippet discusses environmental controversies and their negative impacts on environmental, social, and governance factors."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "...environmentalcontroversiesand improve waste management practices , others point out their negative effects onenvironmental,socialandgovernance...",
+      "classification": {
+        "sentiment": "NEGATIVE",
+        "category": "ESG",
+        "relevance": "HIGH",
+        "summary": "The snippet discusses environmental controversies and their negative impacts on environmental, social, and governance factors."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "Before we proceed further and conducttheSWOT analysis ofCoca-Cola, let's get some insight intotheleading beveragecompanyfirst.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "OTHER",
+        "relevance": "LOW",
+        "summary": "The snippet provides an introduction to Coca-Cola without focusing on any specific aspect."
+      }
+    },
+    {
+      "source_category": "esg",
+      "original_snippet": "... a comprehensive overview oftheyear's topESGcontroversies, breaking them down intothethree pillars ofESG:Environmental,Social, andGovernance...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "ESG",
+        "relevance": "LOW",
+        "summary": "The snippet discusses ESG controversies across three pillars: Environmental, Social, and Governance."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "...theworld\u2019s most iconiccompanies,Coca-Colahas announced that Henrique Braun will take over as its new ChiefExecutiveOfficer (CEO) , effective ...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "MANAGEMENT",
+        "relevance": "HIGH",
+        "summary": "Henrique Braun has been appointed as the new CEO of Coca-Cola."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "...Coca-ColanamedinsiderHenrique Braun as its newCEOon Wednesday, replacing James Quincey, as packaged foodcompaniestry to adjust their ...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "MANAGEMENT",
+        "relevance": "HIGH",
+        "summary": "Coca-Cola named Henrique Braun as its new CEO, replacing James Quincey."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "Coca-Colaannounced in December that Henrique Braun,thecompany\u2019s current chief operating officer and a 30-year veteran ofthecompany, will become ...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "MANAGEMENT",
+        "relevance": "MEDIUM",
+        "summary": "Coca-Cola announced that Henrique Braun will become the new chief operating officer."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "... replaced Arne Freundt, whom it appointed in late 2022, due to whatthecompanycalled \"differing views on strategy execution,\" or Diageo whereCEO...",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "MANAGEMENT",
+        "relevance": "MEDIUM",
+        "summary": "KO replaced its CEO due to differing strategic viewpoints."
+      }
+    },
+    {
+      "source_category": "management",
+      "original_snippet": "Bottlers likeCoca-ColaFEMSA are managing a MX$3.08 increase intheSpecial Tax on Production and Services (IEPS) for sugary drinks.",
+      "classification": {
+        "sentiment": "NEUTRAL",
+        "category": "PRODUCT",
+        "relevance": "MEDIUM",
+        "summary": "Bottlers are dealing with a price increase for sugary drinks under the IEPS tax."
+      }
+    }
+  ],
+  "signal_summary": {
+    "total_signals": 20,
+    "sentiment_breakdown": {
+      "positive": 2,
+      "neutral": 15,
+      "negative": 3
+    },
+    "high_relevance_count": 12,
+    "category_breakdown": {
+      "OTHER": 3,
+      "PRODUCT": 2,
+      "ESG": 4,
+      "MANAGEMENT": 6,
+      "MACRO": 1,
+      "EARNINGS": 4
+    }
+  }
+}

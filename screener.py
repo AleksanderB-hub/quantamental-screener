@@ -19,13 +19,27 @@ def run_screener(input_csv_path):
     df["Score"] = (tier1_scores.sum(axis=1) + tier2_scores.sum(axis=1)).astype(int)
 
     # ── Build scored output ──
-    meta_cols = [c for c in ["Ticker", "Sector", "Screening_Date"] if c in df.columns]
+    meta_cols = [c for c in ["Ticker", "Company_Name", "Sector", "Screening_Date"] if c in df.columns]
     
     scored = (
         df[meta_cols + ["Score"] + cfg.TIER1_FEATURES + cfg.TIER2_FEATURES]
         .sort_values("Score", ascending=False)
-        .reset_index(drop=True)
     )
+    
+    if 'Index_Source' in scored.columns:
+        # Merge Index_Source labels before dedup
+        index_map = scored.groupby('Ticker')['Index_Source'].apply(
+            lambda x: ', '.join(sorted(set(x)))
+        ).to_dict()
+        scored = scored.sort_values("Score", ascending=False)
+        scored = scored.drop_duplicates(subset="Ticker", keep="first")
+        scored['Index_Source'] = scored['Ticker'].map(index_map)
+    else:
+        scored = scored.sort_values("Score", ascending=False)
+        scored = scored.drop_duplicates(subset="Ticker", keep="first")
+    
+    scored = scored.reset_index(drop=True)
+
     scored.index += 1
 
     # ── Save all scored stocks ──

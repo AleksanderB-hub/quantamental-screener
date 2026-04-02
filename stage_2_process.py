@@ -3,42 +3,32 @@ Stage 2: Content Processing (Local LLM)
 Takes Stage 1 raw search results and classifies each snippet
 using the local Qwen model via vLLM.
 """
+import csv
 import json
 from pathlib import Path
+import httpx
 from langchain_openai import ChatOpenAI
+from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import SystemMessage, HumanMessage
 import config as cfg
-from langchain_anthropic import ChatAnthropic
-
 
 # Connect to local vLLM (same interface as OpenAI thanks to LangChain)
-local_llm = ChatOpenAI(
-    base_url=cfg.LOCAL_MODEL_URL,
-    model=cfg.LOCAL_MODEL_NAME,
-    api_key="not-needed",  # vLLM doesn't require auth, but LangChain expects the field
-    temperature=0,
-    max_tokens=300,
-)
 
-# haiku_llm = ChatAnthropic(
-#     model="claude-sonnet-4-6",
-#     max_tokens=300,
-#     temperature=0,
-# )
-
-    # messages = [
-    #     SystemMessage(content=f"""You are a financial text classifier analysing news about {ticker}.
-    #     Given a search result snippet, respond ONLY with a valid JSON object. No other text.
-
-    #     Required keys:
-    #     - sentiment: POSITIVE, NEUTRAL, or NEGATIVE
-    #     - category: one of EARNINGS, REGULATORY, MANAGEMENT, ESG, PRODUCT, MACRO, OTHER
-    #     - relevance: HIGH, MEDIUM, or LOW (is this actually about {ticker}?)
-    #     - summary: one sentence summarising the key point"""),
-        
-    #     HumanMessage(content=f"Classify this snippet:\n\n{snippet}"),
-    # ]
-
+if cfg.LOCAL_MODEL:
+    local_llm = ChatOpenAI(
+        base_url=cfg.LOCAL_MODEL_URL,
+        model=cfg.LOCAL_MODEL_NAME,
+        api_key="not-needed",
+        temperature=0,
+        max_tokens=300,  # type: ignore
+    )
+else:
+    local_llm = ChatAnthropic(
+        model="claude-haiku-4-5-20251001", # type: ignore
+        max_tokens=300, # type: ignore
+        temperature=0,
+    )
+    
 
 def classify_snippet(snippet: str, ticker: str) -> dict:
     """
@@ -66,7 +56,7 @@ def classify_snippet(snippet: str, ticker: str) -> dict:
     
     try:
         response = local_llm.invoke(messages)
-        raw = response.content.strip()
+        raw = str(response.content).strip()
         
         # Clean markdown backticks if present
         if raw.startswith("```"):
@@ -86,11 +76,18 @@ def classify_snippet(snippet: str, ticker: str) -> dict:
         }
 
 
-def process_stock(ticker: str) -> dict:
+def process_stock_stage_2(ticker: str) -> dict | None:
     """
     Loads Stage 1 output for a stock, classifies each search result
     snippet through the local LLM, and saves structured signals.
     """
+    # If you have the processed reports ready
+    output_path = cfg.STAGE2_DIR / f"{ticker}_processed.json"
+    if output_path.exists() and not cfg.FORCE_REFRESH:
+        print(f"  Skipping {ticker} — Stage 2 output already exists")
+        with open(output_path) as f:
+            return json.load(f)
+        
     # Load Stage 1 output
     stage1_path = cfg.STAGE1_DIR / f"{ticker}_research.json"
     if not stage1_path.exists():
@@ -207,11 +204,92 @@ def summarise_signals(signals: list) -> dict:
     }
 
 
+def run_batch(tickers: list) -> list:
+    """
+    Runs process_stock_stage_2() for each ticker in the list.
+    Skips tickers whose Stage 2 JSON already exists.
+    Catches vLLM connection errors and logs them without stopping the batch.
+    Returns list of tickers that were successfully processed or already existed.
+    """
+    print(f"\n{'='*60}")
+    print(f"STAGE 2 BATCH — {len(tickers)} tickers")
+    print(f"{'='*60}")
+
+    successful = []
+    for ticker in tickers:
+        output_path = cfg.STAGE2_DIR / f"{ticker}_processed.json"
+        if output_path.exists():
+            print(f"  [SKIP] {ticker} — already processed")
+            successful.append(ticker)
+            continue
+
+        print(f"  [RUN ] {ticker}")
+        try:
+            result = process_stock_stage_2(ticker)
+            if result is not None:
+                successful.append(ticker)
+            else:
+                print(f"  [ERROR] {ticker} — process_stock_stage_2() returned None")
+        except (ConnectionError, httpx.ConnectError) as e:
+            print(f"  [ERROR] {ticker} — vLLM not reachable: {e}")
+            print(f"           Stage 2 skipped for {ticker}. Re-run when vLLM is available.")
+        except Exception as e:
+            print(f"  [ERROR] {ticker} — {e}")
+
+    return successful
+
+
+def write_stage2_summary():
+    """
+    Reads all per-stock Stage 2 JSON files and writes a summary CSV.
+    Columns: Ticker, Positive_Count, Neutral_Count, Negative_Count,
+             High_Relevance_Count, Top_Category
+    """
+    rows = []
+    for path in sorted(cfg.STAGE2_DIR.glob("*_processed.json")):
+        with open(path) as f:
+            data = json.load(f)
+        summary = data.get("signal_summary", {})
+        breakdown = summary.get("sentiment_breakdown", {})
+        category_breakdown = summary.get("category_breakdown", {})
+        top_category = max(category_breakdown, key=category_breakdown.get) if category_breakdown else ""
+        rows.append({
+            "Ticker": data.get("ticker", path.stem.replace("_processed", "")),
+            "Positive_Count": breakdown.get("positive", 0),
+            "Neutral_Count": breakdown.get("neutral", 0),
+            "Negative_Count": breakdown.get("negative", 0),
+            "High_Relevance_Count": summary.get("high_relevance_count", 0),
+            "Top_Category": top_category,
+        })
+
+    with open(cfg.STAGE2_SUMMARY_CSV, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=[
+            "Ticker", "Positive_Count", "Neutral_Count", "Negative_Count",
+            "High_Relevance_Count", "Top_Category",
+        ])
+        writer.writeheader()
+        writer.writerows(rows)
+
+    print(f"\nStage 2 summary written to: {cfg.STAGE2_SUMMARY_CSV} ({len(rows)} stocks)")
+
+
 if __name__ == "__main__":
-    result = process_stock("EQT")
-    
-    if result:
-        print(f"\n{'='*60}")
-        print("SIGNAL SUMMARY:")
-        print(f"{'='*60}")
-        print(json.dumps(result["signal_summary"], indent=2))
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Stage 2: Content Processing")
+    parser.add_argument("--tickers", nargs="+", default=None,
+                        help="Space-separated list of tickers for batch mode")
+    args = parser.parse_args()
+
+    if args.tickers:
+        run_batch(args.tickers)
+        write_stage2_summary()
+    else:
+        # Legacy single-stock mode
+        result = process_stock_stage_2("EQT")
+        if result:
+            print(f"\n{'='*60}")
+            print("SIGNAL SUMMARY:")
+            print(f"{'='*60}")
+            print(json.dumps(result["signal_summary"], indent=2))
+        write_stage2_summary()
