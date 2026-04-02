@@ -106,6 +106,8 @@ XGBoost (tuned)        +0.309         -0.110
 
 Key finding: with limited training data covering a single market regime, added model complexity hurts rather than helps. The ML models identified which features matter (feature selection), but the final screening uses transparent rule-counting.
 
+Note that you should re-train the models, as the one provided in this repository is a simpler version used for testing.
+
 ## Multi-Index Support
 
 Supported indices: `sp500`, `nasdaq100`, `ftse100`, `dax40`, `custom`
