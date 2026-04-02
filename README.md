@@ -259,3 +259,6 @@ All tuneable parameters are centralised in `config.py`. Key settings:
 - **DuckDuckGo snippets:** search results are snippets, not full articles
 - **20 documents per stock in RAG:** small-scale; pattern scales but not stress-tested
 - **Risk profiling is simplified:** 10 questions, not regulatory-compliant
+
+## License
+Please see the [LICENSE](LICENSE) and [NOTICE](NOTICE) files for details
