@@ -29,7 +29,7 @@ Stage 4: User risk profiling + Claude Haiku → personalised BUY/HOLD/AVOID advi
 ### Installation
 
 ```bash
-git clone https://github.com/yourusername/quantamental-screener.git
+git clone https://github.com/AleksanderB-hub/quantamental-screener.git
 cd quantamental-screener
 python -m venv .venv
 .venv\Scripts\activate       # Windows
